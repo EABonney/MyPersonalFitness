@@ -1,0 +1,30 @@
+/* 
+    Document   : mypersonalfitness
+    Created on : Feb 6, 2010, 4:43:41 PM
+    Author     : eric
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+/*
+This section deals with the position of items on the screen.
+It uses absolute positioning - fixed x and y coordinates measured
+from the top-left corner of the browser's content display.
+Selection is done by ids.
+*/
+#navigation, #bodycontent {
+    position: absolute;
+}
+
+#navigation {
+    top: 20px;
+}
+
+#bodycontent {
+    top: 20px;
+    left: 200px;
+}

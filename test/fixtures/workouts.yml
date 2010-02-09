@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  workout_date: MyString
+  time_of_day: MyString
+  duration: MyString
+  user_id: 1
+  type: MyString
+  notes: MyText
+  play_type: MyString
+
+two:
+  workout_date: MyString
+  time_of_day: MyString
+  duration: MyString
+  user_id: 1
+  type: MyString
+  notes: MyText
+  play_type: MyString

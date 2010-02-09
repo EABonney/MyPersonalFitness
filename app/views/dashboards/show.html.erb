@@ -1,0 +1,6 @@
+<h1>Dashboard</h1>
+<h1>MyPersonalFitness</h1>
+<%= pluralize User.logged_in.count, "user" %> currently logged in<br /> <!-- This based on last_request_at, if they were active < 10 minutes they are logged in -->
+<br />
+<br />
+Welcome <%= @user.first_name %>!
