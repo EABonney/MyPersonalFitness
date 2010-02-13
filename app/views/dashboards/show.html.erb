@@ -1,6 +1,8 @@
 <h1>Dashboard</h1>
-<h1>MyPersonalFitness</h1>
 <%= pluralize User.logged_in.count, "user" %> currently logged in<br /> <!-- This based on last_request_at, if they were active < 10 minutes they are logged in -->
 <br />
 <br />
 Welcome <%= @user.first_name %>!
+<div id="quickcalendar">
+  <%= show_calendar :month => @month_show, :highlight_today => true  %>
+</div>

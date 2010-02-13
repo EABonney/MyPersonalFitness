@@ -9,9 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100202203608) do
+ActiveRecord::Schema.define(:version => 20100211210109) do
+
+  create_table "bike_workouts", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "notifiers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "run_workouts", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -25,6 +35,11 @@ ActiveRecord::Schema.define(:version => 20100202203608) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "swim_workouts", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username",                               :null => false
@@ -48,6 +63,25 @@ ActiveRecord::Schema.define(:version => 20100202203608) do
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
+  end
+
+  create_table "workouts", :force => true do |t|
+    t.string   "workout_date"
+    t.string   "time_of_day"
+    t.string   "duration"
+    t.integer  "distance"
+    t.integer  "user_id"
+    t.string   "type"
+    t.text     "notes"
+    t.string   "plan_type"
+    t.integer  "min_hr",       :default => 0
+    t.integer  "avg_hr",       :default => 0
+    t.integer  "max_hr",       :default => 0
+    t.integer  "cals_burned",  :default => 0
+    t.integer  "pace"
+    t.integer  "avg_rpms",     :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -3,6 +3,7 @@ class DashboardsController < ApplicationController
 
   def show
     @user = @current_user
+    @month_show = params[:id]
   end
 
 end
