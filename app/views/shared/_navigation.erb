@@ -3,7 +3,14 @@
     <li><%= link_to "Home", dashboards_url %></li>
     <li><%= link_to "My Account", account_path %></li>
     <li><a href="reports.php">Reports</a></li>
-    <li><%= link_to "Workouts", workouts_url %></li>
+    <li>"Activities"</li>
+    <ul>
+      <li><%= link_to "Swim", new_swim_workout_url %> </li>
+      <li><%= link_to "Bike", new_bike_workout_url %></li>
+      <li><%= link_to "Run", new_run_workout_url %></li>
+      <li><%= link_to "Strength" %></li>
+      <li><%= link_to "Other" %></li>
+    </ul>
     <li><a href="routes.php">Routes</a></li>
     <li><a href="trainingplans.php">Training Plans</a></li>
     <li><a href="downloads.php">Downloads</a></li>
