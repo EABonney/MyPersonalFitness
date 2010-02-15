@@ -1,9 +1,9 @@
 class CreateWorkouts < ActiveRecord::Migration
   def self.up
     create_table :workouts do |t|
-      t.string :workout_date
-      t.string :time_of_day
-      t.string :duration
+      t.date :workout_date
+      t.time :time_of_day
+      t.time :duration
       t.integer :distance
       t.integer :user_id
       t.string :type
