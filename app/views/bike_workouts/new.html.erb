@@ -1,0 +1,10 @@
+<% form_for @bike, :url => bike_workouts_path do |f| %>
+  <%= f.error_messages %>
+  <fieldset>
+    <legend>Enter a new bike workout</legend>
+    <%= render :partial => "shared/form", :object => f %>
+    <%= f.label :avg_rpms %>
+    <%= f.text_field :avg_rpms %>
+  </fieldset>
+  <%= f.submit "Save" %>
+<% end %>

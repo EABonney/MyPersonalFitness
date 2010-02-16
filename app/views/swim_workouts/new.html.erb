@@ -1,0 +1,8 @@
+<% form_for @swim, :url => swim_workouts_path do |f| %>
+  <%= f.error_messages %>
+  <fieldset>
+    <legend>Enter a new swim workout</legend>
+    <%= render :partial => "shared/form", :object => f %>
+  </fieldset>
+  <%= f.submit "Save" %>
+<% end %>

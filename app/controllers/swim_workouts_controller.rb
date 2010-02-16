@@ -5,11 +5,11 @@ class SwimWorkoutsController < ApplicationController
   end
 
   def new
-    @swim = @current_user.swim_workout.new
+    @swim = @current_user.swim_workouts.new
   end
 
   def create
-    @swim = SwimWorkout.new
+    @swim = @current_user.swim_workouts.new
 
     if @swim.save
       flash[:notice] = "Your swim workout was saved!"

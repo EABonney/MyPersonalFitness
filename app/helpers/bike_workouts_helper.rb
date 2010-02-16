@@ -1,0 +1,2 @@
+module BikeWorkoutsHelper
+end

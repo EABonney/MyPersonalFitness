@@ -5,10 +5,10 @@
   <%= form.time_select :time_of_day, :twelve_hour => true %><br />
   <br />
   <%= form.label :duration %>
-  <%= form.time_select :duration, :twelve_hour => true %><br />
+  <%= form.time_select :duration %><br />
   <br />
   <%= form.label :plan_type %>
-  <%= form.select :plan_type, [["Actual", "a"], ["Planned","p"]] %><br/>
+  <%= form.select :plan_type, options_for_select(PlanType::VALID_PLANS) %><br/>
   <br />
   <%= form.label :distance %>
   <%= form.text_field :distance %><br />
