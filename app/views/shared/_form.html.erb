@@ -1,0 +1,26 @@
+  <%= form.label :workout_date %>
+  <%= form.date_select :workout_date %><br/>
+  <br />
+  <%= form.label :time_of_day %>
+  <%= form.time_select :time_of_day, :twelve_hour => true %><br />
+  <br />
+  <%= form.label :duration %>
+  <%= form.time_select :duration, :twelve_hour => true %><br />
+  <br />
+  <%= form.label :plan_type %>
+  <%= form.select :plan_type, [["Actual", "a"], ["Planned","p"]] %><br/>
+  <br />
+  <%= form.label :distance %>
+  <%= form.text_field :distance %><br />
+  <br />
+  <%= form.label :notes %>
+  <%= form.text_area :notes %><br />
+  <br />
+  <%= form.label :min_hr %>
+  <%= form.text_field :min_hr %><br />
+  <br />
+  <%= form.label :avg_hr %>
+  <%= form.text_field :max_hr %><br />
+  <br />
+  <%= form.label :cals_burned %>
+  <%= form.text_field :cals_burned %><br />

@@ -5,7 +5,7 @@ class SwimWorkoutsController < ApplicationController
   end
 
   def new
-    @swim = SwimWorkout.new
+    @swim = @current_user.swim_workout.new
   end
 
   def create
