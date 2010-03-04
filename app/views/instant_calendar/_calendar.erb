@@ -13,7 +13,7 @@
         <% if navigation %>
           <%= link_to "<<", :id => prev_month.month %>
         <% end %>
-        <%= time.strftime("%b") + " " + year.to_s%>
+        <%= time.strftime("%B") + " " + year.to_s%>
         <% if navigation %>
           <%= link_to ">>", :id => next_month.month %>
         <% end %>

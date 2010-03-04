@@ -51,10 +51,10 @@ ActiveRecord::Schema.define(:version => 20100208204559) do
   end
 
   create_table "workouts", :force => true do |t|
-    t.string   "workout_date"
-    t.string   "time_of_day"
-    t.string   "duration"
-    t.integer  "distance"
+    t.date     "workout_date"
+    t.time     "time_of_day"
+    t.time     "duration"
+    t.float    "distance"
     t.integer  "user_id"
     t.string   "type"
     t.text     "notes"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20100208204559) do
     t.integer  "avg_hr",       :default => 0
     t.integer  "max_hr",       :default => 0
     t.integer  "cals_burned",  :default => 0
-    t.integer  "pace"
-    t.integer  "avg_rpms",     :default => 0
+    t.float    "pace"
+    t.float    "avg_rpms",     :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

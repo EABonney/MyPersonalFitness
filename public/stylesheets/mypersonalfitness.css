@@ -1,30 +1,262 @@
 /* 
     Document   : mypersonalfitness
     Created on : Feb 6, 2010, 4:43:41 PM
-    Author     : eric
+    Author     : Eric A. Bonney
     Description:
         Purpose of the stylesheet follows.
 */
 
-/* 
-   TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
+body {
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    background-color: #e2edff;
+    line-height: 125%;
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: x-large;
+    color: navy;
+}
+
+h2 {
+    color: navy;
+    font-size: 130%;
+    font-weight: normal;
+}
+
+h3 {
+    color: navy;
+    font-size: 110%;
+    font-weight: normal;
+}
+
+h4 {
+    color: navy;
+}
+
+div.header {
+    font-weight: bold;
+    text-align: center;
+}
+
+div.labels {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#bodycontent {
+    width: 84%;
+}
+
+#navigation {
+    width: 12%;
+}
+
+#quickcalendar {
+    width: 25%;
+}
+
+#workoutsummary {
+    width: 50%;
+    border: solid 1px navy;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#dayblock h3 {
+    background-color: navy;
+    color: white;
+}
+
+#workoutnotes {
+    width: 85%;
+}
+
+#workoutform {
+    width: 33%;
+}
+
+#workoutform label {
+    display: block;
+    width: 25%;
+    float: left;
+}
+
+#workoutform input {
+    width: 50px;
+    text-align: right;
+}
+
+#currentmonthtotals, #currentyeartotals, #priormonthtotals, #prioryeartotals {
+    width: 25%;
+    color: navy;
+    border: 1px solid navy;
+}
+
+#duration {
+    width: 33%;
+}
+
+#distance {
+    width: 33%;
+}
+
+#swimduration, #swimdistance, #bikeduration, #bikedistance, #runduration, #rundistance {
+    display: inline;
+}
+
+#map {
+    width: 1000px;
+    height: 550px;
+}
 /*
 This section deals with the position of items on the screen.
-It uses absolute positioning - fixed x and y coordinates measured
-from the top-left corner of the browser's content display.
+It uses fixed positioning - items will not scroll when the screen needs
+to scroll. Instead they are completely fixed in there specific location.
+Positioning is done from the top left corner of the browers window.
 Selection is done by ids.
 */
-#navigation, #bodycontent {
-    position: absolute;
+#navigation {
+    position: fixed;
 }
 
 #navigation {
     top: 20px;
+    left: -10px;
+}
+
+/*
+This section deals with the position of items on the screen.
+It uses absolute positioning - fixed x and y coordinates measured
+from the top-left corner of the items container.
+Selection is done by ids.
+*/
+#bodycontent, #quickcalendar, #volumegraph, #workoutsummary, #links, #currentmonthtotals,
+#currentyeartotals, #priormonthtotals, #prioryeartotals, #map {
+    position: absolute;
 }
 
 #bodycontent {
     top: 20px;
-    left: 200px;
+    left: 150px;
+}
+
+#quickcalendar {
+    top: 60px;
+    left: 5px;
+}
+
+#volumegraph {
+    top: 40px;
+    left: 280px;
+}
+
+#workoutsummary {
+    top: 275px;
+}
+
+#links {
+   top: 0px;
+   left: 355px;
+}
+
+#currentmonthtotals {
+    top: 25px;
+    left: 560px;
+}
+
+#currentyeartotals {
+    top: 150px;
+    left: 560px;
+}
+
+#priormonthtotals {
+    top: 25px;
+    left: 830px;
+}
+
+#prioryeartotals {
+    top: 150px;
+    left: 830px;
+}
+
+#map {
+    left: 60px;
+}
+/*
+This section deals with the position of items on the screen.
+It uses relative positioning - inside a particular block.
+Selection is done by ids.
+*/
+#durationdistancepace, #workoutnotes, #distance, #duration, #swimduration, #swimdistance,
+#bikeduration, #bikedistance, #runduration, #rundistance {
+    position: relative;
+}
+
+#durationdistancepace {
+    top: -45px;
+    left: 20%;
+}
+
+#workoutnotes {
+    left: 15%;
+}
+
+#duration {
+    top: 0px;
+    left: 40%;
+}
+
+#distance {
+    top: -15px;
+    left: 70%;
+}
+
+#swim {
+    top: -10px;
+}
+
+#bike {
+    top: -40px;
+}
+
+#run {
+    top: -70px;
+}
+
+#strength {
+    top: -100px;
+}
+
+#other {
+    top: -100px;
+}
+
+#swimduration {
+    left: 60px;
+}
+
+#swimdistance {
+    left: 95px;
+}
+
+#bikeduration {
+    left: 66px;
+}
+
+#bikedistance {
+    left: 115px;
+}
+
+#runduration {
+    left: 66px;
+}
+
+#rundistance {
+    left: 123px;
 }

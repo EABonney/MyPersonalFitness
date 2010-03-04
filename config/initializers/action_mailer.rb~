@@ -1,0 +1,13 @@
+  # Configuration items for ActionMailer
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+   :address => "mail.vanhlebarsoftware.com",
+   :port => 25,
+   :domain => "vanhlebarsoftware.com",
+   :authentication => :plain,
+   :enable_starttls_auto => false,
+   :user_name => "eric.bonney@vanhlebarsoftware.com",
+   :password => "Tanis*1973"
+  }
+  ActionMailer::Base.raise_delivery_errors = true;
+  ActionMailer::Base.default_content_type = "text/html"

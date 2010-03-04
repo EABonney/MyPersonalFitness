@@ -11,7 +11,6 @@ class Workout < ActiveRecord::Base
   #                    :message => "Time formats must be: HH:MM:SS"
 
   def getworkouttotalminutes
-    workout_time = Time.parse(self.duration)
-    totalminutes = ( workout_time.hour * 3600 + workout_time.min * 60 + workout_time.sec ) / 60
+    totalminutes = ( self.duration.hour * 3600 + self.duration.min * 60 + self.duration.sec ) / 60
   end
 end

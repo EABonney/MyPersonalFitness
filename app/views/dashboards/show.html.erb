@@ -1,9 +1,97 @@
-<h1>Dashboard</h1>
-Welcome <%= @user.first_name %>!
-<br/>
-<%= pluralize User.logged_in.count, "user" %> currently logged in<br /> <!-- This based on last_request_at, if they were active < 10 minutes they are logged in -->
+<script type="text/javascript" src="/javascripts/swfobject.js"></script>
+<h1>Dashboard - <%= @user.format_greeting %><%=h  @user.first_name %>!</h1>
 
-<br /><br/>
 <div id="quickcalendar">
-  <%= show_calendar :month => @month_show, :highlight_today => true  %>
+  <%= show_calendar :month => @month_show, :highlight_today => true, :highlight_dates => @dates %>
+</div>
+<div id="volumegraph">
+  <%= @graph %>
+</div>
+
+<% current_date = Date.today %>
+<% lastdate = Date.today-7 %>
+<div id="workoutsummary">
+<% while current_date > lastdate %>
+  <div id="dayblock">
+    <h3><%= current_date.strftime( "%A %b %d, %Y") %></h3>
+     <% @swims.each do |swim| %>
+      <% if swim.workout_date == current_date %>
+        <div id="displayswim">
+          <div id="activityicon"><%= image_tag "swimming-icon64x64.png" %></div>
+          <div id="durationdistancepace"><%=h swim.duration.strftime("%Hhrs %Mmins %Ssec") %> |
+                                       <%=h swim.distance %> yds | <%= swim.pace %>min/100
+          <div id="links"><%= link_to "Edit", :controller => 'swim_workouts', :id => swim, :action => 'edit' %>
+          <%= link_to "Delete", swim, :method => 'delete' %></div></div>
+          <div id="workoutnotes"><%=h(swim.notes).gsub("\r", "<br />") %></div>
+        </div>
+      <% end %>
+     <% end %>
+
+      <% @bikes.each do |bike| %>
+        <% if bike.workout_date == current_date %>
+          <div id="displaybike">
+            <%= image_tag "cycling-icon64x64.png" %>
+            <div id="durationdistancepace"><%=h bike.duration.strftime("%Hhrs %Mmins %Ssec") %> |
+                                         <%=h bike.distance %> mi | <%= bike.pace %> mph
+            <div id="links"><%= link_to "Edit", :controller => 'bike_workouts', :id => bike, :action => 'edit' %>
+            <%= link_to "Delete", bike, :method => 'delete' %></div></div>
+            <div id="workoutnotes"><%=h(bike.notes).gsub("\r", "<br />")  %></div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% @runs.each do |run| %>
+        <% if run.workout_date == current_date %>
+          <div id="displayrun">
+            <%= image_tag "running-icon64x64.png" %>
+            <div id="durationdistancepace"><%=h run.duration.strftime("%Hhrs %Mmins %Ssec") %> |
+                                         <%=h run.distance %> mi | <%= run.pace %>min/mi
+            <div id="links"><%= link_to "Edit", :controller => 'run_workouts', :id => run, :action => 'edit' %>
+            <%= link_to "Delete", run, :method => 'delete' %></div></div>
+            <div id="workoutnotes"><%=h(run.notes).gsub("\r", "<br />")  %></div>
+          </div>
+        <% end %>
+      <% end %>
+
+    <% current_date = current_date-1  %>
+  </div>
+<% end %>
+</div>
+<div id="currentmonthtotals">
+  <div class="header"><%=  Date.today.strftime("%B %Y") %></div>
+  <div id="duration" class="labels">Dur</div><div id="distance" class="labels">Dist</div>
+  <div id="swim">Swim:<div id="swimduration"><%=  @current_month_totals["swim_duration"] %> min</div><div id="swimdistance"><%= @current_month_totals["swim_distance"] %> yds</div></div>
+  <div id="bike">Bike:<div id="bikeduration"><%=  @current_month_totals["bike_duration"] %> min</div><div id="bikedistance"><%= @current_month_totals["bike_distance"] %> mi</div></div>
+  <div id="run">Run:<div id="runduration"><%=  @current_month_totals["run_duration"] %> min</div><div id="rundistance"><%= @current_month_totals["run_distance"] %>mi </div></div>
+  <div id="strength">Strength:</div>
+  <div id="other">Other:</div>
+</div>
+<div id="currentyeartotals">
+  <div class="header"><%=  Date.today.strftime("%Y") %></div>
+  <div id="duration" class="labels">Dur</div><div id="distance" class="labels">Dist</div>
+  <div id="swim">Swim:<div id="swimduration"><%=  @current_ytd_totals["swim_duration"] %> min</div><div id="swimdistance"><%= @current_ytd_totals["swim_distance"] %> yds</div></div>
+  <div id="bike">Bike:<div id="bikeduration"><%=  @current_ytd_totals["bike_duration"] %> min</div><div id="bikedistance"><%= @current_ytd_totals["bike_distance"] %> mi</div></div>
+  <div id="run">Run:<div id="runduration"><%=  @current_ytd_totals["run_duration"] %> min</div><div id="rundistance"><%= @current_ytd_totals["run_distance"] %>mi </div></div>
+  <div id="strength">Strength:</div>
+  <div id="other">Other:</div>
+</div>
+<div id="priormonthtotals">
+  <% display = Date.new(Date.today.year, Date.today.month - 1) %>
+  <div class="header"><%=  display.strftime("%B %Y") %></div>
+  <div id="duration" class="labels">Dur</div><div id="distance" class="labels">Dist</div>
+  <div id="swim">Swim:<div id="swimduration"><%=  @prior_month_totals["swim_duration"] %> min</div><div id="swimdistance"><%= @prior_month_totals["swim_distance"] %> yds</div></div>
+  <div id="bike">Bike:<div id="bikeduration"><%=  @prior_month_totals["bike_duration"] %> min</div><div id="bikedistance"><%= @prior_month_totals["bike_distance"] %> mi</div></div>
+  <div id="run">Run:<div id="runduration"><%=  @prior_month_totals["run_duration"] %> min</div><div id="rundistance"><%= @prior_month_totals["run_distance"] %>mi </div></div>
+  <div id="strength">Strength:</div>
+  <div id="other">Other:</div>
+</div>
+<div id="prioryeartotals">
+  <% display = Date.new(Date.today.year - 1) %>
+  <div class="header"><%=  display.strftime("%Y") %></div>
+  <div id="duration" class="labels">Dur</div><div id="distance" class="labels">Dist</div>
+  <div id="swim">Swim:<div id="swimduration"><%=  @prior_ytd_totals["swim_duration"] %> min</div><div id="swimdistance"><%= @prior_ytd_totals["swim_distance"] %> yds</div></div>
+  <div id="bike">Bike:<div id="bikeduration"><%=  @prior_ytd_totals["bike_duration"] %> min</div><div id="bikedistance"><%= @prior_ytd_totals["bike_distance"] %> mi</div></div>
+  <div id="run">Run:<div id="runduration"><%=  @prior_ytd_totals["run_duration"] %> min</div><div id="rundistance"><%= @prior_ytd_totals["run_distance"] %>mi </div></div>
+  <div id="strength">Strength:</div>
+  <div id="other">Other:</div>
 </div>

@@ -1,0 +1,10 @@
+<div id="workoutform">
+<% form_for @run, :url => run_workout_path do |f| %>
+  <%= f.error_messages %>
+  <fieldset>
+    <legend>Edit your run workout</legend>
+    <%= render :partial => "shared/form", :object => f %>
+  </fieldset>
+  <%= f.submit "Save" %>
+<% end %>
+</div>

@@ -4,12 +4,17 @@ class BikeWorkoutsController < ApplicationController
   def index
   end
 
+  def edit
+    @bike = @current_user.bike_workouts.find(params[:id])
+  end
+
   def new
-    @bike = BikeWorkout.new
+    @bike = @current_user.bike_workouts.new
   end
 
   def create
-    @bike = BikeWorkout.new
+    @bike = @current_user.bike_workouts.build(params[:bike_workout])
+    @bike.calbikepace
 
     if @bike.save
       flash[:notice] = "Your bike workout was saved!"
@@ -17,5 +22,22 @@ class BikeWorkoutsController < ApplicationController
     else
       render :action => :new
     end
+  end
+
+  def update
+    @bike = @current_user.bike_workouts.find(params[:id])
+    if @bike.update_attributes(params[:bike_workout])
+      flash[:notice] = "Bike workout has been updated!"
+      redirect_to workouts_url
+    else
+      render :action => :edit
+    end
+  end
+
+  def destroy
+    @bike = @current_user.bike_workouts.find(params[:id])
+    @bike.delete
+    flash[:notice] = "Your bike workout was successfully deleted!"
+    redirect_to dashboards_url
   end
 end

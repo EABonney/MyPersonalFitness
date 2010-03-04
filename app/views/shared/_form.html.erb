@@ -5,22 +5,26 @@
   <%= form.time_select :time_of_day, :twelve_hour => true %><br />
   <br />
   <%= form.label :duration %>
-  <%= form.time_select :duration %><br />
+  <%= form.time_select :duration, :include_seconds => true %><br />
   <br />
   <%= form.label :plan_type %>
-  <%= form.select :plan_type, options_for_select(PlanType::VALID_PLANS) %><br/>
+  <%= form.select :plan_type, PlanType::VALID_PLANS %><br/>
   <br />
   <%= form.label :distance %>
   <%= form.text_field :distance %><br />
   <br />
   <%= form.label :notes %>
-  <%= form.text_area :notes %><br />
+  <%= form.text_area :notes, :size => "35x10" %><br />
   <br />
   <%= form.label :min_hr %>
   <%= form.text_field :min_hr %><br />
   <br />
   <%= form.label :avg_hr %>
+  <%= form.text_field :avg_hr %><br />
+  <br />
+  <%= form.label :max_hr %>
   <%= form.text_field :max_hr %><br />
   <br />
   <%= form.label :cals_burned %>
   <%= form.text_field :cals_burned %><br />
+  <br />

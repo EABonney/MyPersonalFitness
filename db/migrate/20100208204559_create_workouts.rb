@@ -4,7 +4,7 @@ class CreateWorkouts < ActiveRecord::Migration
       t.date :workout_date
       t.time :time_of_day
       t.time :duration
-      t.integer :distance
+      t.float :distance
       t.integer :user_id
       t.string :type
       t.text :notes,            :nil => true
@@ -13,9 +13,9 @@ class CreateWorkouts < ActiveRecord::Migration
       t.integer :avg_hr,        :default => 0
       t.integer :max_hr,        :default => 0
       t.integer :cals_burned,   :default => 0
-      t.integer :pace,          :nil => true
-      t.integer :avg_rpms,      :default => 0
-      t.integer :distance,      :nil => true
+      t.float :pace,          :nil => true
+      t.float :avg_rpms,      :default => 0
+      t.float :distance,      :nil => true
 
       t.timestamps
     end

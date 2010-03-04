@@ -6,29 +6,31 @@
 #calendar caption {
 	padding-bottom: 5px;
 	font-weight: bold;
+        color: navy;
 }
 
 #calendar table {
 	width: 100%;
 	border-collapse: collapse;
-	border: 1px solid #F5F2EF;
+	border: 1px solid navy;
 }
 
 #calendar thead th {
 	padding: 5px 0;
 	text-align: center;
-	border-top: 1px solid #F5F2EF;
-	border-left: 1px solid #F5F2EF;
-	background: #F5F2EF;
+	border-top: 1px solid navy;
+	border-left: 1px solid navy;
+	background: navy;
+        color: white;
 }
 
 #calendar tbody td {
 	padding: 5px 0;
 	text-align: center;
-	border-top: 1px solid #F5F2EF;
-	border-left: 1px solid #F5F2EF;
-	border-right: 1px solid #F5F2EF;
-	border-bottom: 1px solid #F5F2EF;
+	border-top: 1px solid navy;
+	border-left: 1px solid navy;
+	border-right: 1px solid navy;
+	border-bottom: 1px solid navy;
 }
 
 #calendar tfoot td {
@@ -40,7 +42,7 @@
 }
 
 #calendar .today {
-	background: lightgray;
+	background: yellow;
 }
 
 #calendar .highlight {

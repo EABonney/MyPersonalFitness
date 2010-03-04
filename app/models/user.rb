@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   has_many :swim_workouts
+  has_many :bike_workouts
+  has_many :run_workouts
+  has_many :workouts
   
   acts_as_authentic do |c|
     c.validates_length_of_password_field_options = {:on => :update, :minimum => 4, :if => :has_no_credentials?}
@@ -57,5 +60,15 @@ class User < ActiveRecord::Base
     self.password = params[:user][:password]
     self.password_confirmation = params[:user][:password_confirmation]
     save
+  end
+
+  def format_greeting
+    if Time.now.hour < 12
+      "Good morning "
+    elsif Time.now.hour >= 12 && Time.now.hour < 17
+      "Good afternoon "
+    else
+      "Good evening "
+    end
   end
 end
