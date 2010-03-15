@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :bike_workouts
   has_many :run_workouts
   has_many :workouts
+  has_many :routes
   
   acts_as_authentic do |c|
     c.validates_length_of_password_field_options = {:on => :update, :minimum => 4, :if => :has_no_credentials?}

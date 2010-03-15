@@ -2,13 +2,16 @@
 <% javascript_tag do %>
       var user_address = "<%= @user.street %>,<%= @user.city %>,<%= @user.state %>,<%= @user.city %>,<%= @user.zipcode %>"
       setAddress(user_address);
-      var displayType = 'show'
+      var displayType = 'edit'
       setDisplayType(displayType)
       var routePoints = <%= @json_points %>
       loadPoints(routePoints)
       var distMi = <%= @route.distance_mi %>
       var distKm = <%= @route.distance_km %>
       setDistance(distMi, distKm);
+      var name = "<%= @route.name %>"
+      var route_type = "<%= @route.route_type %>"
+      setNameType(name, route_type);
 <% end %>
 <div id="map"></div>
 <div id="tabledistance">
@@ -18,4 +21,14 @@
       <tr><td>Total</td><td id="mi">0.0 mi</td><td id="km">0.0 km</td></tr>
     </tbody>
   </table>
+</div>
+<div id="routename">
+  <%= label_tag 'name', 'Route Description' %><br />
+  <%= text_field_tag 'name' %><br />
+  <br />
+  <%= label_tag 'type', 'Route Type' %><br />
+  <%= select_tag 'type', '<option></option><option>Swim</option><option>Bike</option><option>Run</option>
+                <option>Other</option>' %><br />
+  <br />
+  <%= button_to_function 'Save', 'saveRoute()' %>
 </div>

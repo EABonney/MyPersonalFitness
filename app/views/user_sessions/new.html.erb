@@ -10,5 +10,10 @@
   <br />
   <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
   <br />
+  <% if !current_user %>
+    If you don't have an account,
+    <%= link_to "Register", new_account_path %>, it's quick, easy and free!
+  <% end %><br />
+  <br />
   <%= f.submit "Login" %>
 <% end %>

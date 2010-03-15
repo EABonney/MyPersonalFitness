@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  distance_mi: 1.5
+  distance_km: 1.5
+  type: MyString
+  user_id: 1
+
+two:
+  name: MyString
+  distance_mi: 1.5
+  distance_km: 1.5
+  type: MyString
+  user_id: 1

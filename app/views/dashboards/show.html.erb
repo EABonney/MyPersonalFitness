@@ -2,7 +2,7 @@
 <h1>Dashboard - <%= @user.format_greeting %><%=h  @user.first_name %>!</h1>
 
 <div id="quickcalendar">
-  <%= show_calendar :month => @month_show, :highlight_today => true, :highlight_dates => @dates %>
+  <%= show_calendar :month => @month_show, :highlight_dates => @dates %>
 </div>
 <div id="volumegraph">
   <%= @graph %>

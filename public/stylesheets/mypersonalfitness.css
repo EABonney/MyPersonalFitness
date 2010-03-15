@@ -55,6 +55,8 @@ div.labels {
 
 #navigation {
     width: 12%;
+    height: 96%;
+    background-color: #7da5d8;
 }
 
 #quickcalendar {
@@ -110,9 +112,17 @@ div.labels {
     display: inline;
 }
 
+#routelisting {
+    width: 85%;
+}
+
 #map {
     width: 1000px;
     height: 550px;
+}
+
+#routename input {
+    width: 125px;
 }
 /*
 This section deals with the position of items on the screen.
@@ -137,7 +147,8 @@ from the top-left corner of the items container.
 Selection is done by ids.
 */
 #bodycontent, #quickcalendar, #volumegraph, #workoutsummary, #links, #currentmonthtotals,
-#currentyeartotals, #priormonthtotals, #prioryeartotals, #map {
+#currentyeartotals, #priormonthtotals, #prioryeartotals, #map, #newroute, #tabledistance,
+#routename {
     position: absolute;
 }
 
@@ -188,6 +199,22 @@ Selection is done by ids.
 #map {
     left: 60px;
 }
+
+#newroute {
+    top: 500px;
+    left: -130px;
+}
+
+#tabledistance {
+    top: 250px;
+    left: -140px;
+}
+
+#routename {
+    top: 300px;
+    left: -140px;
+}
+
 /*
 This section deals with the position of items on the screen.
 It uses relative positioning - inside a particular block.
