@@ -25,7 +25,7 @@ class RoutesController < ApplicationController
   end
 
   def create
-    @route = @current_user.routes.new
+    @route = @current_user.routes.create
     @route.name = params[:name]
     @route.distance_mi = params[:distMi]
     @route.distance_km = params[:distKm]
