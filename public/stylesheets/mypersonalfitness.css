@@ -148,7 +148,7 @@ Selection is done by ids.
 */
 #bodycontent, #quickcalendar, #volumegraph, #workoutsummary, #links, #currentmonthtotals,
 #currentyeartotals, #priormonthtotals, #prioryeartotals, #map, #newroute, #tabledistance,
-#routename {
+#routename, #map_controls {
     position: absolute;
 }
 
@@ -197,7 +197,11 @@ Selection is done by ids.
 }
 
 #map {
-    left: 60px;
+    left: 1px;
+}
+
+#map_controls {
+    left: 1000px;
 }
 
 #newroute {

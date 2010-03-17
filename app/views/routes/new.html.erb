@@ -13,7 +13,7 @@
       <tr><td>Total</td><td id="mi">0.0 mi</td><td id="km">0.0 km</td></tr>
     </tbody>
   </table>
-</div>
+</div>  <!-- End of tabledistance div -->
 <div id="routename">
   <%= label_tag 'name', 'Route Description' %><br />
   <%= text_field_tag 'name' %><br />
@@ -23,4 +23,9 @@
                 <option>Other</option>' %><br />
   <br />
   <%= button_to_function 'Save', 'saveRoute()' %>
-</div>
+</div>  <!-- End of routename div -->
+<div id="map_controls">
+  <%= button_to_function 'Undo', 'undoLastPoint()', :id => 'undopoint' %><br />
+  <%= button_to_function 'Clear Map', 'clearMap()', :id => 'clearmap' %><br />
+  <%= button_to_function 'Auto Center', 'autoCenterMap()', :id => 'autocenter' %>
+</div>  <!-- End of mapcontrols div -->
