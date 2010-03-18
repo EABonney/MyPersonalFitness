@@ -5,7 +5,8 @@ class BikeWorkoutsController < ApplicationController
   end
 
   def edit
-    @bike = @current_user.bike_workouts.find(params[:id])
+    @routes = @current_user.routes.find :all
+    @workout = @current_user.bike_workouts.find(params[:id])
   end
 
   def new

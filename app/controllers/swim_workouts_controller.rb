@@ -5,7 +5,8 @@ class SwimWorkoutsController < ApplicationController
   end
 
   def edit
-    @swim = @current_user.swim_workouts.find(params[:id])
+    @routes = @current_user.routes.find :all
+    @workout = @current_user.swim_workouts.find(params[:id])
   end
 
   def new
