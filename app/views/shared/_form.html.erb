@@ -13,6 +13,9 @@
   <%= form.label :distance %>
   <%= form.text_field :distance %><br />
   <br />
+  <%= form.label :route_id %>
+  <%= form.collection_select :route_id, @routes, :id, :name, :include_blank => true %>
+  <br />
   <%= form.label :notes %>
   <%= form.text_area :notes, :size => "35x10" %><br />
   <br />

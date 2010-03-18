@@ -9,7 +9,8 @@ class RunWorkoutsController < ApplicationController
   end
 
   def new
-    @run = @current_user.run_workouts.new
+    @routes = @current_user.routes.find :all
+    @workout = @current_user.run_workouts.new
   end
 
   def create
@@ -18,7 +19,7 @@ class RunWorkoutsController < ApplicationController
     
     if @run.save
       flash[:notice] = "Your run workout was saved!"
-      redirect_to workouts_url
+      redirect_to dashboards_url
     else
       render :action => :new
     end
@@ -28,7 +29,7 @@ class RunWorkoutsController < ApplicationController
     @run = @current_user.run_workouts.find(params[:id])
     if @run.update_attributes(params[:run_workout])
       flash[:notice] = "Run workout has been updated!"
-      redirect_to workouts_url
+      redirect_to dashboards_url
     else
       render :action => :edit
     end

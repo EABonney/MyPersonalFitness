@@ -1,6 +1,7 @@
 require 'time'
 
 class Workout < ActiveRecord::Base
+  has_one :route
   
   validates_numericality_of :user_id, :min_hr, :avg_hr, :max_hr, :cals_burned
 

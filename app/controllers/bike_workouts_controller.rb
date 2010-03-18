@@ -9,7 +9,8 @@ class BikeWorkoutsController < ApplicationController
   end
 
   def new
-    @bike = @current_user.bike_workouts.new
+    @routes = @current_user.routes.find :all
+    @workout = @current_user.bike_workouts.new
   end
 
   def create
@@ -18,7 +19,7 @@ class BikeWorkoutsController < ApplicationController
 
     if @bike.save
       flash[:notice] = "Your bike workout was saved!"
-      redirect_to workouts_url
+      redirect_to dashboards_url
     else
       render :action => :new
     end
@@ -28,7 +29,7 @@ class BikeWorkoutsController < ApplicationController
     @bike = @current_user.bike_workouts.find(params[:id])
     if @bike.update_attributes(params[:bike_workout])
       flash[:notice] = "Bike workout has been updated!"
-      redirect_to workouts_url
+      redirect_to dashboards_url
     else
       render :action => :edit
     end

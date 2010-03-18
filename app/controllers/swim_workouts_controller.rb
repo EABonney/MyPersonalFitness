@@ -9,7 +9,8 @@ class SwimWorkoutsController < ApplicationController
   end
 
   def new
-    @swim = @current_user.swim_workouts.new
+    @routes = @current_user.routes.find :all
+    @workout = @current_user.swim_workouts.new
   end
 
   def create
@@ -18,7 +19,7 @@ class SwimWorkoutsController < ApplicationController
     
     if @swim.save
       flash[:notice] = "Your swim workout was saved!"
-      redirect_to workouts_url
+      redirect_to dashboards_url
     else
       render :action => :new
     end
@@ -28,7 +29,7 @@ class SwimWorkoutsController < ApplicationController
     @swim = @current_user.swim_workouts.find(params[:id])
     if @swim.update_attributes(params[:swim_workout])
       flash[:notice] = "Swim workout has been updated!"
-      redirect_to workouts_url
+      redirect_to dashboards_url
     else
       render :action => :edit
     end

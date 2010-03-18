@@ -21,7 +21,10 @@
           <div id="durationdistancepace"><%=h swim.duration.strftime("%Hhrs %Mmins %Ssec") %> |
                                        <%=h swim.distance %> yds | <%= swim.pace %>min/100
           <div id="links"><%= link_to "Edit", :controller => 'swim_workouts', :id => swim, :action => 'edit' %>
-          <%= link_to "Delete", swim, :method => 'delete' %></div></div>
+          <%= link_to "Delete", swim, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></div>
+          <% if !swim.route_id.nil? %>
+            <div id="workoutroute"><%= link_to "Route", :controller => 'routes', :id => swim.route_id, :action => 'show' %></div>
+          <% end %>
           <div id="workoutnotes"><%=h(swim.notes).gsub("\r", "<br />") %></div>
         </div>
       <% end %>
@@ -34,7 +37,10 @@
             <div id="durationdistancepace"><%=h bike.duration.strftime("%Hhrs %Mmins %Ssec") %> |
                                          <%=h bike.distance %> mi | <%= bike.pace %> mph
             <div id="links"><%= link_to "Edit", :controller => 'bike_workouts', :id => bike, :action => 'edit' %>
-            <%= link_to "Delete", bike, :method => 'delete' %></div></div>
+            <%= link_to "Delete", bike, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></div>
+            <% if !bike.route_id.nil? %>
+              <div id="workoutroute"><%= link_to "Route", :controller => 'routes', :id => bike.route_id, :action => 'show' %></div>
+            <% end %>
             <div id="workoutnotes"><%=h(bike.notes).gsub("\r", "<br />")  %></div>
           </div>
         <% end %>
@@ -47,7 +53,10 @@
             <div id="durationdistancepace"><%=h run.duration.strftime("%Hhrs %Mmins %Ssec") %> |
                                          <%=h run.distance %> mi | <%= run.pace %>min/mi
             <div id="links"><%= link_to "Edit", :controller => 'run_workouts', :id => run, :action => 'edit' %>
-            <%= link_to "Delete", run, :method => 'delete' %></div></div>
+            <%= link_to "Delete", run, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></div>
+            <% if !run.route_id.nil? %>
+              <div id="workoutroute"><%= link_to "Route", :controller => 'routes', :id => run.route_id, :action => 'show' %></div>
+            <% end %>
             <div id="workoutnotes"><%=h(run.notes).gsub("\r", "<br />")  %></div>
           </div>
         <% end %>

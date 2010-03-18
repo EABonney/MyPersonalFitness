@@ -1,14 +1,13 @@
 <div id="routelisting">
   <table id="routes">
     <tr><th>Description</th><th>Type</th><th>Miles</th><th>Kilometers</th><th>Date Created</th>
-      <th>Show</th><th>Edit</th><th>Delete</th>
+      <th>Show</th><th>Delete</th>
     </tr>
     <tbody>
       <% @routes.each do |route| %>
         <tr><td><%= route.name %></td><td><%=  route.route_type %></td><td><%=  route.distance_mi %></td>
           <td><%=  route.distance_km %></td><td><%=  route.created_at.strftime( "%b %d, %Y") %></td>
           <td><%= button_to "Show", { :action => 'show', :id => route.id }, :method => 'get' %></td>
-          <td><%# button_to "Edit", { :action => 'edit', :id => route.id }, :method => 'get' #%></td>
           <td><%= button_to "Delete", { :action => 'destroy', :id => route.id },
             :confirm => "Are you sure?", :method => :delete %></td>
         </tr>

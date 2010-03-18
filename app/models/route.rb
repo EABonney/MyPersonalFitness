@@ -1,8 +1,9 @@
 class Route < ActiveRecord::Base
   belongs_to :user
+  belongs_to :workout
   has_many :route_points, :dependent => :destroy
 
-  validates_length_of :name, {:on => :update, :maximum => 25, :message => "must not exceed 25 letters."}
+  validates_length_of :name, {:on => :update, :maximum => 50, :message => "must not exceed 50 letters."}
   validates_presence_of :type, {:on => :update }
   validates_numericality_of :distance_mi, :distance_km, :user_id, {:on => :update}
 

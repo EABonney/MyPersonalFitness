@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100307225750) do
+ActiveRecord::Schema.define(:version => 20100317234009) do
 
   create_table "notifiers", :force => true do |t|
     t.datetime "created_at"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20100307225750) do
     t.float    "avg_rpms",     :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "route_id"
   end
 
 end
