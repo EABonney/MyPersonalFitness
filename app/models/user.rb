@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :swim_workouts
   has_many :bike_workouts
   has_many :run_workouts
+  has_many :other_workouts
   has_many :workouts
   has_many :routes
   

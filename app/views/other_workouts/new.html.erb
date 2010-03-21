@@ -1,0 +1,32 @@
+<div id="workoutform">
+<% form_for @workout, :url => other_workouts_path do |f| %>
+  <%= f.error_messages %>
+  <fieldset>
+    <legend>Enter a new other workout</legend>
+    <%= f.label :description %>
+    <%= f.text_field :description %><br />
+    <br />
+    <%= f.label :workout_date %>
+    <%= f.date_select :workout_date %><br/>
+    <br />
+    <%= f.label :time_of_day %>
+    <%= f.time_select :time_of_day, :twelve_hour => true %><br />
+    <br />
+    <%= f.label :duration %>
+    <%= f.time_select :duration, :include_seconds => true %><br />
+    <br />
+    <%= f.label :plan_type %>
+    <%= f.select :plan_type, PlanType::VALID_PLANS %><br/>
+    <br />
+    <%= f.label :distance %>
+    <%= f.text_field :distance %><br />
+    <br />
+    <%= f.label :route_id %>
+    <%= f.collection_select :route_id, @routes, :id, :name, :include_blank => true %>
+    <br />
+    <%= f.label :notes %>
+    <%= f.text_area :notes, :size => "35x10" %><br />
+  </fieldset>
+  <%= f.submit "Save" %>
+<% end %>
+</div>
