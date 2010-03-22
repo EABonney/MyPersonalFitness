@@ -94,6 +94,11 @@ div.labels {
     text-align: right;
 }
 
+#workoutform input.other_description {
+    width: 235px;
+    text-align: left;
+}
+
 #currentmonthtotals, #currentyeartotals, #priormonthtotals, #prioryeartotals {
     width: 25%;
     color: navy;
@@ -108,7 +113,8 @@ div.labels {
     width: 33%;
 }
 
-#swimduration, #swimdistance, #bikeduration, #bikedistance, #runduration, #rundistance {
+#swimduration, #swimdistance, #bikeduration, #bikedistance, #runduration, #rundistance,
+#otherduration, #otherdistance {
     display: inline;
 }
 
@@ -124,6 +130,7 @@ div.labels {
 #routename input {
     width: 125px;
 }
+
 /*
 This section deals with the position of items on the screen.
 It uses fixed positioning - items will not scroll when the screen needs
@@ -225,7 +232,7 @@ It uses relative positioning - inside a particular block.
 Selection is done by ids.
 */
 #durationdistancepace, #workoutnotes, #distance, #duration, #swimduration, #swimdistance,
-#bikeduration, #bikedistance, #runduration, #rundistance {
+#bikeduration, #bikedistance, #runduration, #rundistance, #otherduration, #otherdistance {
     position: relative;
 }
 
@@ -289,5 +296,13 @@ Selection is done by ids.
 }
 
 #rundistance {
+    left: 123px;
+}
+
+#otherduration {
+    left: 66px;
+}
+
+#otherdistance {
     left: 123px;
 }

@@ -6,6 +6,7 @@ class DashboardsController < ApplicationController
     @swims = @current_user.swim_workouts.find :all, :order => 'workout_date DESC'
     @bikes = @current_user.bike_workouts.find :all, :order => 'workout_date DESC'
     @runs = @current_user.run_workouts.find :all, :order => 'workout_date DESC'
+    @others = @current_user.other_workouts.find :all, :order => 'workout_date DESC'
     @current_month_totals = get_summary_totals(Date.new(Date.today.year, Date.today.month, 1),
                                   Date.new(Date.today.year, Date.today.month, -1))
     @prior_month_totals = get_summary_totals(Date.new(Date.today.year, Date.today.month-1, 1),
@@ -128,6 +129,8 @@ class DashboardsController < ApplicationController
       begin_date, end_date], :select => 'duration, distance'
     runs = @current_user.run_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ?",
       begin_date, end_date], :select => 'duration, distance'
+    others = @current_user.other_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ?",
+      begin_date, end_date], :select => 'duration, distance'
 
     dur = 0.0
     dist = 0.0
@@ -156,6 +159,14 @@ class DashboardsController < ApplicationController
     totals["run_distance"] = dist
     totals["run_duration"] =dur
 
+    dur = 0.0
+    dist = 0.0
+    others.each do |other|
+      dist += other.distance
+      dur += (other.duration.hour * 60) + (other.duration.min) + (other.duration.sec / 60)
+    end
+    totals["other_distance"] = dist
+    totals["other_duration"] =dur
     totals
   end
 end
