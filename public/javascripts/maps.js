@@ -223,6 +223,7 @@ function editRoute()
 
 function drawRoute()
 {
+    map.clearOverlays();
     // calc the total distance
     for( var i=0; i<dataPoints.length; i++)
     {
@@ -416,6 +417,7 @@ function clearMap()
 
 function loadPoints( routePoints )
 {
+    alert(routePoints);
     var points = new Array();
     points = eval( '(' + routePoints + ')' );
     // turn the json objects into GLatLng objects.

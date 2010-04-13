@@ -11,11 +11,13 @@
     <table summary="Calendar">
       <caption>
         <% if navigation %>
-          <%= link_to "<<", :id => prev_month.month %>
+          <%= link_to "<<", :controller => 'workouts', :month => prev_month.month,
+            :year => prev_month.year, :action => 'index' %>
         <% end %>
         <%= time.strftime("%B") + " " + year.to_s%>
         <% if navigation %>
-          <%= link_to ">>", :id => next_month.month %>
+          <%= link_to ">>", :controller => 'workouts', :month => next_month.month,
+            :year => next_month.year, :action => 'index' %>
         <% end %>
       </caption>
       <thead>

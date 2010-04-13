@@ -33,6 +33,8 @@ h3 {
     color: navy;
     font-size: 110%;
     font-weight: normal;
+    background-color: navy;
+    color: white;
 }
 
 h4 {
@@ -68,11 +70,6 @@ div.labels {
     border: solid 1px navy;
     padding-left: 5px;
     padding-right: 5px;
-}
-
-#dayblock h3 {
-    background-color: navy;
-    color: white;
 }
 
 #workoutnotes {
@@ -114,7 +111,9 @@ div.labels {
 }
 
 #swimduration, #swimdistance, #bikeduration, #bikedistance, #runduration, #rundistance,
-#otherduration, #otherdistance {
+#otherduration, #otherdistance, #dailylinkedit, #dailylinkdelete, #workoutduration, #workoutdistance,
+#workoutswimduration, #workoutswimdistance, #workoutbikeduration, #workoutbikedistance,
+#workoutrunduration, #workoutrundistance, #workoutotherduration, #workoutotherdistance {
     display: inline;
 }
 
@@ -131,6 +130,44 @@ div.labels {
     width: 125px;
 }
 
+#dailyworkouts {
+    width: 100%;
+}
+
+#dailyswim, #dailybike, #dailyrun, #dailyother {
+    width: 25%;
+}
+
+#dailyswim h2, #dailybike h2, #dailyrun h2, #dailyother h2 {
+    text-align: center;
+}
+
+#dailylinkedit a, #dailylinkdelete a {
+    color: white;
+}
+
+#dailylinkedit a:hover , #dailylinkdelete a:hover {
+    color: white;
+    font-style: italic;
+}
+
+#monthlytotals {
+    font-size: x-small;
+    width: 12%;
+}
+
+#workoutheader {
+    text-align: center;
+}
+
+#workoutswimduration, #workoutbikeduration, #workoutrunduration, #workoutotherduration {
+    width: 50px;
+    text-align: left;
+}
+#workoutswimdistance, #workoutbikedistance, #workoutrundistance, #workoutotherdistance {
+    width: 50px;
+    text-align: right;
+}
 /*
 This section deals with the position of items on the screen.
 It uses fixed positioning - items will not scroll when the screen needs
@@ -153,9 +190,12 @@ It uses absolute positioning - fixed x and y coordinates measured
 from the top-left corner of the items container.
 Selection is done by ids.
 */
-#bodycontent, #quickcalendar, #volumegraph, #workoutsummary, #links, #currentmonthtotals,
+#bodycontent, #quickcalendar, #volumegraph, #workoutsummary, #linkedit, #linkdelete, #currentmonthtotals,
 #currentyeartotals, #priormonthtotals, #prioryeartotals, #map, #newroute, #tabledistance,
-#routename, #map_controls {
+#routename, #map_controls, #sitesize, #planselection, #dailyswim, #dailybike, #dailyrun, #dailyother,
+#returntoday, #monthlytotals, #workoutduration, #workoutdistance, #workouts, #workoutswimdistance,
+#workoutbikedistance, #workoutrundistance, #workoutotherdistance, #workoutswimduration,
+#workoutbikeduration, #workoutrunduration, #workoutotherduration {
     position: absolute;
 }
 
@@ -178,9 +218,14 @@ Selection is done by ids.
     top: 275px;
 }
 
-#links {
+#linkedit {
    top: 0px;
    left: 355px;
+}
+
+#linkdelete {
+    top: 0px;
+    left: 380px;
 }
 
 #currentmonthtotals {
@@ -226,13 +271,67 @@ Selection is done by ids.
     left: -140px;
 }
 
+#sitesize {
+    top: 540px;
+}
+
+#planselection {
+    top: 250px;
+}
+
+#dailyswim {
+    left: 0px;
+}
+
+#dailybike {
+    left: 275px;
+}
+
+#dailyrun {
+    left: 550px;
+}
+
+#dailyother {
+    left: 825px;
+}
+
+#returntoday {
+    top: 540px;
+    left: -125px;
+}
+
+#monthlytotals {
+    top: 250px;
+    left: -145px;
+}
+
+#workoutduration {
+    left: 55px;
+}
+
+#workoutdistance {
+    left: 105px;
+}
+
+#workouts {
+    top: 30px;
+}
+
+#workoutswimduration, #workoutbikeduration, #workoutrunduration, #workoutotherduration {
+    left: 45px;
+}
+
+#workoutswimdistance, #workoutbikedistance, #workoutrundistance, #workoutotherdistance {
+    left: 85px;
+}
 /*
 This section deals with the position of items on the screen.
 It uses relative positioning - inside a particular block.
 Selection is done by ids.
 */
 #durationdistancepace, #workoutnotes, #distance, #duration, #swimduration, #swimdistance,
-#bikeduration, #bikedistance, #runduration, #rundistance, #otherduration, #otherdistance {
+#bikeduration, #bikedistance, #runduration, #rundistance, #otherduration, #otherdistance,
+#dailylinkedit, #dailylinkdelete, #dailyworkoutnotes {
     position: relative;
 }
 
@@ -305,4 +404,16 @@ Selection is done by ids.
 
 #otherdistance {
     left: 123px;
+}
+
+#dailylinkedit {
+    left: 30px;
+}
+
+#dailylinkdelete {
+    left: 40px;
+}
+
+#dailyworkoutnotes {
+    top: 10px;
 }

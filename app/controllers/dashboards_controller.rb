@@ -1,22 +1,47 @@
 class DashboardsController < ApplicationController
   before_filter :require_user, :only => [ :show ]
-
+ 
   def show
-    @user = @current_user
-    @swims = @current_user.swim_workouts.find :all, :order => 'workout_date DESC'
-    @bikes = @current_user.bike_workouts.find :all, :order => 'workout_date DESC'
-    @runs = @current_user.run_workouts.find :all, :order => 'workout_date DESC'
-    @others = @current_user.other_workouts.find :all, :order => 'workout_date DESC'
-    @current_month_totals = get_summary_totals(Date.new(Date.today.year, Date.today.month, 1),
-                                  Date.new(Date.today.year, Date.today.month, -1))
-    @prior_month_totals = get_summary_totals(Date.new(Date.today.year, Date.today.month-1, 1),
-                                  Date.new(Date.today.year, Date.today.month-1, -1))
-    @current_ytd_totals = get_summary_totals(Date.new(Date.today.year, 1, 1),
-                                  Date.new(Date.today.year, 12, 31))
-    @prior_ytd_totals = get_summary_totals(Date.new(Date.today.year-1, 1, 1),
-                                  Date.new(Date.today.year-1, 12, 31))
-    @dates = get_highlight_dates
-    @month_show = params[:id]
+    if params[:type].nil?
+      type = 'a'
+      first_date = Date.today - Date.today.wday - 20
+      last_date = Date.today + (7 - Date.today.wday) + 21
+      @user = @current_user
+      @swims = @current_user.swim_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+        first_date, last_date, type], :order => 'workout_date DESC'
+      @bikes = @current_user.bike_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+        first_date, last_date, type], :order => 'workout_date DESC'
+      @runs = @current_user.run_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+        first_date, last_date, type],  :order => 'workout_date DESC'
+      @others = @current_user.other_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+        first_date, last_date, type],  :order => 'workout_date DESC'
+      @workouts = @user.workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+        first_date, last_date, type], :order => 'workout_date DESC'
+      @current_month_totals = get_summary_totals(Date.new(Date.today.year, Date.today.month, 1),
+                                    Date.new(Date.today.year, Date.today.month, -1))
+      @prior_month_totals = get_summary_totals(Date.new(Date.today.year, Date.today.month-1, 1),
+                                    Date.new(Date.today.year, Date.today.month-1, -1))
+      @current_ytd_totals = get_summary_totals(Date.new(Date.today.year, 1, 1),
+                                    Date.new(Date.today.year, 12, 31))
+      @prior_ytd_totals = get_summary_totals(Date.new(Date.today.year-1, 1, 1),
+                                    Date.new(Date.today.year-1, 12, 31))
+      @dates = get_highlight_dates
+      @month_show = params[:id]
+    elsif params[:type] == 'p'
+      type = params[:type]
+      first_date = Date.today
+      last_date = Date.today + 7
+      @user = @current_user
+      @workouts = @user.workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+        first_date, last_date, type], :order => 'workout_date ASC'
+    elsif params[:type] == 'a'
+      type = params[:type]
+      last_date = Date.today
+      first_date = Date.today - 7
+      @user = @current_user
+      @workouts = @user.workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+        first_date, last_date, type], :order => 'workout_date DESC'
+    end
 
     respond_to do |wants|
       wants.html {
@@ -26,15 +51,28 @@ class DashboardsController < ApplicationController
         chart = create_volume_graph
         render :text => chart, :layout => false
       }
+      wants.dashupdate {
+        returned_workouts = '\'['
+        @workouts.each do |workout|
+          returned_workouts += workout.to_workoutdata_json
+        end
+        # trim the trailing comma from the last object.
+        returned_workouts = returned_workouts.chomp(',')
+        returned_workouts += ']\''
+        res={:success=>true, :content => returned_workouts}
+        render :text=>res.to_json
+      }
     end
   end
 
   private
   def create_volume_graph
-    OpenFlashChart.new( "Weekly Volume" ) do |c|
-          weekly_durations = get_durations
+    OpenFlashChart.new( "Weekly vs Planned Volume" ) do |c|
+          weekly_durations = get_durations('a')
+          planned_durations = get_durations('p')
+
           c << BarDome.new( :values => weekly_durations )
-          #c << Line.new( :values => [500, 550, 600, 400, 500, 600, 1000] )
+          c << Line.new( :values => planned_durations )
           c.bg_colour = '#e2edff'
 
           # labels along the x axis
@@ -51,7 +89,13 @@ class DashboardsController < ApplicationController
           y_axis = YAxis.new
           y_axis.set_colour('#000080')
           y_axis.set_grid_colour('#e2edff')
-          y_axis.set_range(0, weekly_durations.max, set_y_axis_steps(weekly_durations.max))
+          if (weekly_durations.max > planned_durations.max)
+            y_range = weekly_durations.max
+          else
+            y_range = planned_durations.max
+          end
+          y_steps = set_y_axis_steps(y_range)
+          y_axis.set_range(0, y_range, y_steps)
           c.y_axis = y_axis
           y_legend = YLegend.new("Minutes")
           y_legend.set_style('{font-size: 10px; color: "#000080"}')
@@ -59,15 +103,15 @@ class DashboardsController < ApplicationController
         end
   end
 
-  def get_durations
+  def get_durations(type)
     # Set the beginning date of the graph.
     first_date = Date.today - Date.today.wday - 20
     last_date = Date.today + (7 - Date.today.wday) + 21
     week_ending = first_date + 6
 
     # Get the workouts that we want to display on the graph
-    actual_workouts = @current_user.workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ?",
-      first_date, last_date], :order => 'workout_date ASC'
+    actual_workouts = @current_user.workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+      first_date, last_date, type], :order => 'workout_date ASC'
 
     # Create the weekly bar graph data from the duration of each workout.
     durations = Array.new
@@ -78,10 +122,9 @@ class DashboardsController < ApplicationController
         week_ending = week_ending + 7
         temp = 0
       end
-
       temp = temp + (actual_workout.duration.hour * 60) + (actual_workout.duration.min) + (actual_workout.duration.sec / 60)
     end
-
+    
     # Now that we are out of the workouts, see if we have any remaining weeks to add to duration as zeros.
     while week_ending <= last_date
       durations << temp
@@ -108,8 +151,8 @@ class DashboardsController < ApplicationController
   def get_highlight_dates
     first_date = Date.new(Date.today.year, Date.today.month, 1)
     last_date = Date.new(Date.today.year, Date.today.month, -1)
-    workouts = @current_user.workouts.find :all,  :conditions => ["workout_date >= ? and workout_date <= ?",
-      first_date, last_date], :order => 'workout_date ASC', :group => "workout_date", :select => 'workout_date'
+    workouts = @current_user.workouts.find :all,  :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+      first_date, last_date, 'a'], :order => 'workout_date ASC', :group => "workout_date", :select => 'workout_date'
     dates = Array.new
     workouts.each do |workout|
       dates << workout.workout_date.day
@@ -123,14 +166,14 @@ class DashboardsController < ApplicationController
 
   def get_summary_totals(begin_date, end_date)
     totals = Hash.new
-    swims = @current_user.swim_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ?",
-      begin_date, end_date], :select => 'duration, distance'
-    bikes = @current_user.bike_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ?",
-      begin_date, end_date], :select => 'duration, distance'
-    runs = @current_user.run_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ?",
-      begin_date, end_date], :select => 'duration, distance'
-    others = @current_user.other_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ?",
-      begin_date, end_date], :select => 'duration, distance'
+    swims = @current_user.swim_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+      begin_date, end_date, 'a'], :select => 'duration, distance'
+    bikes = @current_user.bike_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+      begin_date, end_date, 'a'], :select => 'duration, distance'
+    runs = @current_user.run_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+      begin_date, end_date, 'a'], :select => 'duration, distance'
+    others = @current_user.other_workouts.find :all, :conditions => ["workout_date >= ? and workout_date <= ? and plan_type = ?",
+      begin_date, end_date, 'a'], :select => 'duration, distance'
 
     dur = 0.0
     dist = 0.0
@@ -166,7 +209,7 @@ class DashboardsController < ApplicationController
       dur += (other.duration.hour * 60) + (other.duration.min) + (other.duration.sec / 60)
     end
     totals["other_distance"] = dist
-    totals["other_duration"] =dur
+    totals["other_duration"] = dur
     totals
   end
 end

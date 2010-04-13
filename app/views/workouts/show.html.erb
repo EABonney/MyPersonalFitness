@@ -1,2 +1,112 @@
-<h1>Workouts</h1>
-<p><%= show_calendar :month => @month_show, :highlight_today => true, :navigation => true %></p>
+<h1>Monthly Calendar</h1>
+<p><%= show_calendar :month => @month_show, :year => @year_show, :navigation => true,
+        :highlight_dates => @dates, :dates => @links  %></p>
+<div id="dailyworkouts">
+<% swim = false %>
+<% bike = false %>
+<% run = false %>
+<% other = false %>
+  <% @daily_workouts.each do |workout| %>
+    <% if workout.type == "SwimWorkout" %>
+      <div id="dailyswim">
+        <h2>Swim</h2>
+        <h3><%=  @show_date.strftime( "%A %b %d, %Y" ) %>
+        <div id="dailylinkedit"><%= link_to "Edit", :controller => 'swim_workouts', :id => workout, :action => 'edit' %></div>
+        <div id="dailylinkdelete"><%= link_to "Delete", workout, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></h3>
+        <div id="dailydurdispac"><%=h workout.duration.strftime("%Hhrs %Mmins %Ssec") %> |
+                                    <%=h workout.distance %> yds | <%= workout.pace %>min/100
+        </div>
+        <% if !workout.route_id.nil? %>
+          <div id="workoutroute"><%= link_to "Route", :controller => 'routes', :id => workout.route_id, :action => 'show' %></div>
+        <% end %>
+        <div id="dailyworkoutnotes"><%=h(workout.notes).gsub("\r", "<br />") %></div>
+      </div>
+      <% swim = true %>
+   <% elsif workout.type == "BikeWorkout" %>
+      <div id="dailybike">
+        <h2>Biking</h2>
+         <h3><%=  @show_date.strftime( "%A %b %d, %Y" ) %>
+        <div id="dailylinkedit"><%= link_to "Edit", :controller => 'bike_workouts', :id => workout, :action => 'edit' %></div>
+        <div id="dailylinkdelete"><%= link_to "Delete", workout, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></h3>
+        <div id="dailydurdispac"><%=h workout.duration.strftime("%Hhrs %Mmins %Ssec") %> |
+                                    <%=h workout.distance %> mi | <%= workout.pace %>mph
+        </div>
+        <% if !workout.route_id.nil? %>
+          <div id="workoutroute"><%= link_to "Route", :controller => 'routes', :id => workout.route_id, :action => 'show' %></div>
+        <% end %>
+        <div id="dailyworkoutnotes"><%=h(workout.notes).gsub("\r", "<br />") %></div>
+      </div>
+      <% bike = true %>
+   <% elsif workout.type == "RunWorkout" %>
+      <div id="dailyrun">
+        <h2>Run</h2>
+         <h3><%=  @show_date.strftime( "%A %b %d, %Y" ) %>
+        <div id="dailylinkedit"><%= link_to "Edit", :controller => 'run_workouts', :id => workout, :action => 'edit' %></div>
+        <div id="dailylinkdelete"><%= link_to "Delete", workout, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></h3>
+        <div id="dailydurdispac"><%=h workout.duration.strftime("%Hhrs %Mmins %Ssec") %> |
+                                    <%=h workout.distance %> mi | <%= workout.pace %>min/mi
+        </div>
+        <% if !workout.route_id.nil? %>
+          <div id="workoutroute"><%= link_to "Route", :controller => 'routes', :id => workout.route_id, :action => 'show' %></div>
+        <% end %>
+        <div id="dailyworkoutnotes"><%=h(workout.notes).gsub("\r", "<br />") %></div>
+      </div>
+      <% run = true %>
+   <% elsif workout.type == "OtherWorkout" %>
+      <div id="dailyother">
+        <h2>Other</h2>
+         <h3><%=  @show_date.strftime( "%A %b %d, %Y" ) %>
+        <div id="dailylinkedit"><%= link_to "Edit", :controller => 'other_workouts', :id => workout, :action => 'edit' %></div>
+        <div id="dailylinkdelete"><%= link_to "Delete", workout, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></h3>
+        <div id="dailydurdispac"><%=h workout.duration.strftime("%Hhrs %Mmins %Ssec") %> |
+                                    <%=h workout.distance %> | <%= workout.pace %>
+        </div>
+        <% if !workout.route_id.nil? %>
+          <div id="workoutroute"><%= link_to "Route", :controller => 'routes', :id => workout.route_id, :action => 'show' %></div>
+        <% end %>
+        <div id="dailyworkoutnotes"><%=h(workout.notes).gsub("\r", "<br />") %></div>
+      </div>
+      <% other = true %>
+   <% end %>
+  <% end %>
+  <% if !swim %>
+      <div id="dailyswim">
+        <h2>Swim</h2>
+        <h3><%=  @show_date.strftime( "%A %b %d, %Y" ) %></h3>
+      </div>
+  <% end %>
+  <% if !bike %>
+      <div id="dailybike">
+        <h2>Bike</h2>
+        <h3><%=  @show_date.strftime( "%A %b %d, %Y" ) %></h3>
+      </div>
+  <% end %>
+  <% if !run %>
+      <div id="dailyrun">
+        <h2>Run</h2>
+        <h3><%=  @show_date.strftime( "%A %b %d, %Y" ) %></h3>
+      </div>
+  <% end %>
+  <% if !other %>
+      <div id="dailyother">
+        <h2>Other</h2>
+        <h3><%=  @show_date.strftime( "%A %b %d, %Y" ) %></h3>
+      </div>
+  <% end %>
+</div>
+<div id="returntoday">
+  <%= link_to "Today", workouts_url %>
+</div>
+<div id="monthlytotals">
+  <div class="header"><%=  @show_date.strftime("%B %Y") %></div>
+  <div id="durdistheader">
+    <div id="workoutduration" class="labels">Dur</div><div id="workoutdistance" class="labels">Dist</div>
+  </div>
+  <div id="workouts">
+    <div id="workoutswim">Swim:<div id="workoutswimduration"><%=  @monthly_totals["swim_duration"] %> min</div><div id="workoutswimdistance"><%= @monthly_totals["swim_distance"] %></div></div>
+    <div id="workoutbike">Bike:<div id="workoutbikeduration"><%=  @monthly_totals["bike_duration"] %> min</div><div id="workoutbikedistance"><%= @monthly_totals["bike_distance"] %></div></div>
+    <div id="workoutrun">Run:<div id="workoutrunduration"><%=  @monthly_totals["run_duration"] %> min</div><div id="workoutrundistance"><%= @monthly_totals["run_distance"] %></div></div>
+    <div id="workoutstrength">Strength:</div>
+    <div id="workoutother">Other:<div id="workoutotherduration"><%= @monthly_totals["other_duration"] %> min</div><div id="workoutotherdistance"><%= @monthly_totals["other_distance"] %></div></div>
+  </div>
+</div>

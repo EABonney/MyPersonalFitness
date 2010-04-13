@@ -12,7 +12,7 @@ module OpenFlashChart
     def initialize args={}
       super
       @type = "line"      
-      @values = []
+      #@values = []
     end
 
     def set_default_dot_style(style)

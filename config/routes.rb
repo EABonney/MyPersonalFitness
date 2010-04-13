@@ -40,13 +40,12 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
   map.resources :routes
   map.resource :dashboards
-  map.resource :workouts
   map.register '/register/:activation_code', :controller => 'activations', :action => 'new'
   map.activate '/activate/:id', :controller => 'activations', :action => 'create'
   map.resource :user_session
   map.root :controller => "user_sessions", :action => "new" # optional, this just sets the root route
   map.resource :account, :controller => "users"
-  map.resources :users, :swim_workouts, :bike_workouts, :run_workouts, :strength_workouts, :other_workouts
+  map.resources :users, :workouts, :swim_workouts, :bike_workouts, :run_workouts, :strength_workouts, :other_workouts
 #  map.connect ':controller/:action/:id'
 #  map.connect ':controller/:action/:id.:format'
 end

@@ -1,0 +1,19 @@
+<h1>Monthly Calendar</h1>
+<p><%= show_calendar :month => @month_show, :year => @year_show, :navigation => true,
+        :highlight_dates => @dates, :dates => @links  %></p>
+<div id="returntoday">
+  <%= link_to "Today", workouts_url %>
+</div>
+<div id="monthlytotals">
+  <div class="header"><%=  @show_date.strftime("%B %Y") %></div>
+  <div id="durdistheader">
+    <div id="workoutduration" class="labels">Dur</div><div id="workoutdistance" class="labels">Dist</div>
+  </div>
+  <div id="workouts">
+    <div id="workoutswim">Swim:<div id="workoutswimduration"><%=  @monthly_totals["swim_duration"] %> min</div><div id="workoutswimdistance"><%= @monthly_totals["swim_distance"] %></div></div>
+    <div id="workoutbike">Bike:<div id="workoutbikeduration"><%=  @monthly_totals["bike_duration"] %> min</div><div id="workoutbikedistance"><%= @monthly_totals["bike_distance"] %></div></div>
+    <div id="workoutrun">Run:<div id="workoutrunduration"><%=  @monthly_totals["run_duration"] %> min</div><div id="workoutrundistance"><%= @monthly_totals["run_distance"] %></div></div>
+    <div id="workoutstrength">Strength:</div>
+    <div id="workoutother">Other:<div id="workoutotherduration"><%= @monthly_totals["other_duration"] %> min</div><div id="workoutotherdistance"><%= @monthly_totals["other_distance"] %></div></div>
+  </div>
+</div>
