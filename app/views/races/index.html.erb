@@ -1,0 +1,15 @@
+<h1>Races Listing</h1>
+<% @races.each do |race| %>
+<div id="racelisting">
+  <%= link_to race.name, race_url(race) %><br/>
+  Location: <%= race.city %>, <%= race.state %><br/>
+  Distance: <%= race.race_distance %><br/>
+  Date: <%= race.race_date.strftime( "%A %b %d, %Y") %><br/>
+  Time: <%= race.race_time.strftime( "%I:%M %p" ) %><br/>
+  <%= button_to "Add to My Calendar", race_reports_url(:race_id => race), :method => :post %><br/>
+  <br/>
+</div>
+<% end %>
+<div id="racesmenu">
+  <%= link_to "New Race", new_race_url %>
+</div>

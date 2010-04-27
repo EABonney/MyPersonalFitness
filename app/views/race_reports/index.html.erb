@@ -1,0 +1,11 @@
+<h1>My Race Reports</h1>
+<% @race_reports.each do |race_report| %>
+<div id="racelisting">
+  <%= link_to race_report.race.name, race_report_url(race_report) %><br/>
+  Date: <%= race_report.race.race_date.strftime( "%A %b %d, %Y") %><br/>
+  <%= link_to "Edit", edit_race_report_url(race_report) %>
+  <%= button_to "Delete", race_report,
+    :method => 'delete', :confirm => "Are you sure you want to delete this race report?" %>
+  <br/><br/>
+</div>
+<% end %>

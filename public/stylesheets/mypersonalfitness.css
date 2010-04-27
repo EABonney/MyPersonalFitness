@@ -96,6 +96,10 @@ div.labels {
     text-align: left;
 }
 
+#raceform {
+    width: 40%;
+}
+
 #currentmonthtotals, #currentyeartotals, #priormonthtotals, #prioryeartotals {
     width: 25%;
     color: navy;
@@ -195,7 +199,7 @@ Selection is done by ids.
 #routename, #map_controls, #sitesize, #planselection, #dailyswim, #dailybike, #dailyrun, #dailyother,
 #returntoday, #monthlytotals, #workoutduration, #workoutdistance, #workouts, #workoutswimdistance,
 #workoutbikedistance, #workoutrundistance, #workoutotherdistance, #workoutswimduration,
-#workoutbikeduration, #workoutrunduration, #workoutotherduration {
+#workoutbikeduration, #workoutrunduration, #workoutotherduration, #racesmenu {
     position: absolute;
 }
 
@@ -301,7 +305,7 @@ Selection is done by ids.
 }
 
 #monthlytotals {
-    top: 250px;
+    top: 275px;
     left: -145px;
 }
 
@@ -323,6 +327,11 @@ Selection is done by ids.
 
 #workoutswimdistance, #workoutbikedistance, #workoutrundistance, #workoutotherdistance {
     left: 85px;
+}
+
+#racesmenu {
+    top: 300px;
+    left: -130px;
 }
 /*
 This section deals with the position of items on the screen.

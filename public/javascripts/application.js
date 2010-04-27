@@ -17,8 +17,8 @@ function changePlanType()
          parent.removeChild(e);
         
          // Send the request to the server to update the workouts displayed.
-         new Ajax.Request('/dashboards.dashupdate'+'?authenticity_token='+AUTH_TOKEN,
-            {method: 'get',
+         new Ajax.Request('/change_workout_display'+'?authenticity_token='+AUTH_TOKEN,
+            {method: 'put',
                 parameters: arrPlanType,
                 onComplete: function(request)
                 {
@@ -34,6 +34,46 @@ function changePlanType()
                    {
                         // everything went right so redirect back to the routes index page.
                         fillInWorkouts(result.content);
+                   }
+                }
+            }); // end of the Ajax request
+    }
+}
+
+function changeRaceType()
+{
+    var AUTH_TOKEN = window._token;
+    var race_type;
+
+    if( document.getElementById && (race_type = document.getElementById('race_race_type')) )
+    {
+         var indexRaceType = race_type.selectedIndex;
+         var selRaceType = race_type[indexRaceType].value;
+         var arrRaceType = new Array();
+         arrRaceType["value"] = selRaceType;
+
+         //var e = document.getElementById('race_distance');
+         //var parent = e.parentNode;
+         //parent.removeChild(e);
+
+         // Send the request to the server to update the workouts displayed.
+         new Ajax.Request('/races/new.urd'+'?authenticity_token='+AUTH_TOKEN,
+            {method: 'get',
+                parameters: arrRaceType,
+                onComplete: function(request)
+                {
+                    // parse the result to JSON by eval-ing it
+                    result = eval( "(" + request.responseText + ")" );
+
+                    // check to see if it was an error or success
+                   if(!result.success)
+                   {
+                        alert( 'AJAX.Request FAILED!' + result.content );
+                   }
+                   else
+                   {
+                        // everything went right so redirect back to the routes index page.
+                        fillInDistances(result.content);
                    }
                 }
             }); // end of the Ajax request
@@ -188,6 +228,29 @@ function fillInWorkouts( results )
         h3 = 0;
     }
     document.getElementById('bodycontent').appendChild(divWrkSum);
+}
+
+function fillInDistances( results )
+{
+    results = results.substring(1,results.length-1);
+    var distances = new Array();
+    var msg;
+
+    distances = parseJSON( results );
+
+    $('race_race_distance').options.length = 0;
+    var opt = document.createElement('option');
+    opt.text = "- Select a distance -";
+    opt.value = "- Select a distance -";
+    $('race_race_distance').options.add( opt );
+
+    for(var i=0; i<distances.length; i++)
+    {
+        opt = document.createElement('option');
+        opt.text = distances[i]['distance'];
+        opt.value = distances[i]['distance'];
+        $('race_race_distance').options.add(opt)
+    }
 }
 
 function parseJSON( jsonData )

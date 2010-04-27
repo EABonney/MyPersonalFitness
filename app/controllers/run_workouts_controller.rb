@@ -28,6 +28,7 @@ class RunWorkoutsController < ApplicationController
 
   def update
     @run = @current_user.run_workouts.find(params[:id])
+    @run.calrunpace
     if @run.update_attributes(params[:run_workout])
       flash[:notice] = "Run workout has been updated!"
       redirect_to dashboards_url

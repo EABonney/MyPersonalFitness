@@ -64,7 +64,7 @@ class DashboardsController < ApplicationController
       }
     end
   end
-
+  
   private
   def create_volume_graph
     OpenFlashChart.new( "Weekly vs Planned Volume" ) do |c|

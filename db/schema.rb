@@ -9,9 +9,54 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100321142239) do
+ActiveRecord::Schema.define(:version => 20100423130040) do
 
   create_table "notifiers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "race_reports", :force => true do |t|
+    t.string   "age_group"
+    t.time     "total_time"
+    t.integer  "age_group_rank"
+    t.integer  "age_group_participants"
+    t.integer  "over_all_rank"
+    t.integer  "total_participants"
+    t.integer  "race_id"
+    t.integer  "user_id"
+    t.time     "swim_time"
+    t.time     "bike_time"
+    t.time     "run_time"
+    t.time     "t1_time"
+    t.time     "t2_time"
+    t.text     "swim_notes"
+    t.text     "bike_notes"
+    t.text     "run_notes"
+    t.text     "t1_notes"
+    t.text     "t2_notes"
+    t.text     "prerace_notes"
+    t.text     "postrace_notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "race_types", :force => true do |t|
+    t.string "race_type"
+    t.string "race_distance"
+  end
+
+  create_table "races", :force => true do |t|
+    t.string   "name"
+    t.string   "race_type"
+    t.string   "race_distance"
+    t.float    "swim_distance", :default => 0.0
+    t.float    "bike_distance", :default => 0.0
+    t.float    "run_distance",  :default => 0.0
+    t.date     "race_date"
+    t.time     "race_time"
+    t.string   "city"
+    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
