@@ -17,6 +17,9 @@ class Workout < ActiveRecord::Base
     json += '"notes":' + self.notes + ','
     json += '"type":' + self.type + ','
     json += '"route_id":' + self.route_id.to_s + ','
+    if !self.description.nil?
+      json += '"description":' + self.description + ','
+    end
     json += '"id":' + self.id.to_s + '},'
   end
 end

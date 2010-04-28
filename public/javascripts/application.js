@@ -89,6 +89,7 @@ function fillInWorkouts( results )
         var divLinkDelete;
         var divWorkoutRoute;
         var divWorkoutNotes;
+        var divOtherDesc = 0;
         divLinkEdit = document.createElement('div');
         divLinkEdit.setAttribute('id', 'linkedit');
         divLinkDelete = document.createElement('div');
@@ -144,6 +145,9 @@ function fillInWorkouts( results )
                 break;
             case "OtherWorkout":
                 divWkType = document.createElement('div');
+                divOtherDesc = document.createElement('div');
+                divOtherDesc.setAttribute('id', 'otherdescription');
+                divOtherDesc.appendChild(document.createTextNode(workouts[i-1]['description']));
                 divWkType.setAttribute('id', 'displayother');
                 divActivityIcon = document.createElement('div');
                 divActivityIcon.setAttribute('id', 'activityicon');
@@ -167,6 +171,8 @@ function fillInWorkouts( results )
         divDurDisPace.appendChild(divLinkDelete);
         divActivityIcon.appendChild(Img);
         divWkType.appendChild(divActivityIcon);
+        if( divOtherDesc )
+            divWkType.appendChild(divOtherDesc);
         var txt = workouts[i-1]['notes'].split('\r\n');
         for( var line=0; line<txt.length; line++)
         {
