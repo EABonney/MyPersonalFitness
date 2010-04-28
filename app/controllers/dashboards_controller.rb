@@ -1,8 +1,7 @@
 class DashboardsController < ApplicationController
-  before_filter :require_user, :only => [ :show ]
+  before_filter :require_user, :only => [ :show, :change_workouts_display ]
  
   def show
-    if params[:type].nil?
       type = 'a'
       first_date = Date.today - Date.today.wday - 20
       last_date = Date.today + (7 - Date.today.wday) + 21
@@ -27,7 +26,20 @@ class DashboardsController < ApplicationController
                                     Date.new(Date.today.year-1, 12, 31))
       @dates = get_highlight_dates
       @month_show = params[:id]
-    elsif params[:type] == 'p'
+
+    respond_to do |wants|
+      wants.html {
+        @graph = open_flash_chart_object( 275, 225, url_for( :action => 'show', :format => :json ) )
+      }
+      wants.json {
+        chart = create_volume_graph
+        render :text => chart, :layout => false
+      }
+    end
+  end
+
+  def change_workouts_display
+    if params[:type] == 'p'
       type = params[:type]
       first_date = Date.today
       last_date = Date.today + 7
@@ -43,26 +55,15 @@ class DashboardsController < ApplicationController
         first_date, last_date, type], :order => 'workout_date DESC'
     end
 
-    respond_to do |wants|
-      wants.html {
-        @graph = open_flash_chart_object( 275, 225, url_for( :action => 'show', :format => :json ) )
-      }
-      wants.json {
-        chart = create_volume_graph
-        render :text => chart, :layout => false
-      }
-      wants.dashupdate {
-        returned_workouts = '\'['
-        @workouts.each do |workout|
-          returned_workouts += workout.to_workoutdata_json
-        end
-        # trim the trailing comma from the last object.
-        returned_workouts = returned_workouts.chomp(',')
-        returned_workouts += ']\''
-        res={:success=>true, :content => returned_workouts}
-        render :text=>res.to_json
-      }
+    returned_workouts = '\'['
+    @workouts.each do |workout|
+      returned_workouts += workout.to_workoutdata_json
     end
+    # trim the trailing comma from the last object.
+    returned_workouts = returned_workouts.chomp(',')
+    returned_workouts += ']\''
+    res={:success=>true, :content => returned_workouts}
+    render :text=>res.to_json
   end
 
   private

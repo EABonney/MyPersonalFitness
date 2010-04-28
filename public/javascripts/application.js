@@ -17,8 +17,8 @@ function changePlanType()
          parent.removeChild(e);
         
          // Send the request to the server to update the workouts displayed.
-         new Ajax.Request('/dashboards.dashupdate'+'?authenticity_token='+AUTH_TOKEN,
-            {method: 'get',
+         new Ajax.Request('/change_workouts_display'+'?authenticity_token='+AUTH_TOKEN,
+            {method: 'put',
                 parameters: arrPlanType,
                 onComplete: function(request)
                 {
