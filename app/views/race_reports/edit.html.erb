@@ -4,7 +4,7 @@
   <fieldset>
     <legend>Edit your race report for <%= @race_report.race.name %></legend>
     <%= f.label :total_time %>
-    <%= f.time_select :total_time, :include_seconds => true %><br/>
+    <%= f.time_select :total_time, :include_seconds => true, :default => @default %><br/>
     <br/>
     <%= f.label :age_group %>
     <%= f.text_field :age_group %><br/>
@@ -25,31 +25,31 @@
     <%= f.text_area :prerace_notes %><br/>
     <br/>
     <%= f.label :swim_time %>
-    <%= f.time_select :swim_time, :include_seconds => true %><br/>
+    <%= f.time_select :swim_time, :include_seconds => true, :default => @default %><br/>
     <br/>
     <%= f.label :swim_notes %>
     <%= f.text_area :swim_notes %><br/>
     <br/>
     <%= f.label :t1_time %>
-    <%= f.time_select :t1_time, :include_seconds => true %><br/>
+    <%= f.time_select :t1_time, :include_seconds => true, :default => @default %><br/>
     <br/>
     <%= f.label :t1_notes %>
     <%= f.text_area :t1_notes %><br/>
     <br/>
     <%= f.label :bike_time %>
-    <%= f.time_select :bike_time, :include_seconds => true %><br/>
+    <%= f.time_select :bike_time, :include_seconds => true, :default => @default %><br/>
     <br/>
     <%= f.label :bike_notes %>
     <%= f.text_area :bike_notes %><br/>
     <br/>
     <%= f.label :t2_time %>
-    <%= f.time_select :t2_time, :include_seconds => true %><br/>
+    <%= f.time_select :t2_time, :include_seconds => true, :default => @default %><br/>
     <br/>
     <%= f.label :t2_notes %>
     <%= f.text_area :t2_notes %><br/>
     <br/>
     <%= f.label :run_time %>
-    <%= f.time_select :run_time, :include_seconds => true %><br/>
+    <%= f.time_select :run_time, :include_seconds => true, :default => @default %><br/>
     <br/>
     <%= f.label :run_notes %>
     <%= f.text_area :run_notes %><br/>

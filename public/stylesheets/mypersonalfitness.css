@@ -41,6 +41,15 @@ h4 {
     color: navy;
 }
 
+h3.header {
+    text-align: center;
+}
+
+h4.futureraces {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 div.header {
     font-weight: bold;
     text-align: center;
@@ -172,6 +181,22 @@ div.labels {
     width: 50px;
     text-align: right;
 }
+
+#racereportform {
+    width: 30%;
+}
+
+#racereport {
+    width: 35%;
+}
+
+#upcomingraces, #racepr {
+    width: 24%;
+    color: navy;
+    border: 1px solid navy;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 /*
 This section deals with the position of items on the screen.
 It uses fixed positioning - items will not scroll when the screen needs
@@ -179,7 +204,7 @@ to scroll. Instead they are completely fixed in there specific location.
 Positioning is done from the top left corner of the browers window.
 Selection is done by ids.
 */
-#navigation {
+#navigation, #racesmenu {
     position: fixed;
 }
 
@@ -188,6 +213,11 @@ Selection is done by ids.
     left: -10px;
 }
 
+
+#racesmenu {
+    top: 400px;
+    left: 20px;
+}
 /*
 This section deals with the position of items on the screen.
 It uses absolute positioning - fixed x and y coordinates measured
@@ -199,7 +229,7 @@ Selection is done by ids.
 #routename, #map_controls, #sitesize, #planselection, #dailyswim, #dailybike, #dailyrun, #dailyother,
 #returntoday, #monthlytotals, #workoutduration, #workoutdistance, #workouts, #workoutswimdistance,
 #workoutbikedistance, #workoutrundistance, #workoutotherdistance, #workoutswimduration,
-#workoutbikeduration, #workoutrunduration, #workoutotherduration, #racesmenu {
+#workoutbikeduration, #workoutrunduration, #workoutotherduration, #upcomingraces, #racepr {
     position: absolute;
 }
 
@@ -209,7 +239,7 @@ Selection is done by ids.
 }
 
 #quickcalendar {
-    top: 60px;
+    top: 40px;
     left: 5px;
 }
 
@@ -329,9 +359,14 @@ Selection is done by ids.
     left: 85px;
 }
 
-#racesmenu {
-    top: 300px;
-    left: -130px;
+#upcomingraces {
+    top: 275px;
+    left: 560px;
+}
+
+#racepr {
+    top: 275px;
+    left: 830px;
 }
 /*
 This section deals with the position of items on the screen.

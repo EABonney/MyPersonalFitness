@@ -3,14 +3,16 @@ class RaceReportsController < ApplicationController
   
   def index
     @race_reports = @current_user.race_reports.find :all
-    tmp =1
+    @race_reports.sort! { |a,b| b.race.race_date <=> a.race.race_date }
   end
 
   def show
+    @race_report = @current_user.race_reports.find(params[:id])
   end
 
   def edit
     @race_report = @current_user.race_reports.find(params[:id])
+    @default = Time.mktime( 12, 1, 1, 0, 0, 0 )
   end
 
   def create
@@ -29,7 +31,7 @@ class RaceReportsController < ApplicationController
     @race_report = @current_user.race_reports.find(params[:id])
     if @race_report.update_attributes(params[:race_report])
       flash[:notice] = "Your race report has been updated!"
-      redirect_to races_url
+      redirect_to race_reports_url
     else
       render :action => :edit
     end

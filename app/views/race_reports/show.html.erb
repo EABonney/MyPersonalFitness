@@ -1,2 +1,69 @@
-<h1>RaceReports#show</h1>
-<p>Find me in app/views/race_reports/show.html.erb</p>
+<div id="racereport">
+<h1><%= h @race_report.race.name %></h1>
+<div id="raceinfo">
+  Swim: <%= @race_report.race.swim_distance %> | Bike: <%= @race_report.race.bike_distance %> |
+  Run: <%= @race_report.race.run_distance %><br/>
+  Race Date: <%= @race_report.race.race_date.strftime( "%A %b %d, %Y") %><br/>
+  Race Time: <%= @race_report.race.race_time.strftime( "%I:%M %p" ) %><br/>
+</div>
+<div id="racetimesrankings">
+  <% if @race_report.total_time %>
+  Overall Time: <%= @race_report.total_time.strftime( "%H:%M:%S") %><br/>
+  <% end %>
+  <br/>
+  Overall Ranking: <%= h @race_report.over_all_rank %>/<%= h @race_report.total_participants %><br/>
+  Age Group Ranking (<%= h @race_report.age_group %>):
+  <%= h @race_report.age_group_rank %>/<%= h @race_report.age_group_participants %><br/>
+</div>
+<div id="prerace">
+  <h2>Prerace Warm-up and Notes</h2>
+  <%= h @race_report.prerace_notes %>
+</div>
+<div id="swimreport">
+  <h2>Swim Time and Notes</h2>
+  <% if @race_report.swim_time %>
+  Swim Time:<%= @race_report.swim_time.strftime( "%H:%M:%S" ) %> |
+  Pace: <%= calculatepace "swim", @race_report.race.swim_distance, @race_report.swim_time %> min/100 yds<br/>
+  <% end %>
+  <br/>
+  <%= h @race_report.swim_notes %>
+</div>
+<div id="t1report">
+  <h2>T1 Time and Notes</h2>
+  <% if @race_report.t1_time %>
+  T1 Time: <%= @race_report.t1_time.strftime( "%H:%M:%S" ) %><br/>
+  <% end %>
+  <br/>
+  <%= h @race_report.t1_notes %>
+</div>
+<div id="bikereport">
+  <h2>Bike Time and Notes</h2>
+  <% if @race_report.bike_time %>
+  Bike Time:<%= @race_report.bike_time.strftime( "%H:%M:%S" ) %> |
+  Pace: <%= calculatepace "bike", @race_report.race.bike_distance, @race_report.bike_time %> mi/hr<br/>
+  <% end %>
+  <br/>
+  <%= h @race_report.bike_notes %>
+</div>
+<div id="t2report">
+  <h2>T2 Time and Notes</h2>
+  <% if @race_report.t2_time %>
+  T2 Time: <%= @race_report.t2_time.strftime( "%H:%M:%S" ) %><br/>
+  <% end %>
+  <br/>
+  <%= h @race_report.t2_notes %>
+</div>
+<div id="runreport">
+  <h2>Run Time and Notes</h2>
+  <% if @race_report.run_time %>
+  Run Time: <%= @race_report.run_time.strftime( "%H:%M:%S" ) %> |
+  Pace: <%= calculatepace "run", @race_report.race.run_distance, @race_report.run_time %> min/mi<br/>
+  <% end %>
+  <br/>
+  <%= h @race_report.run_notes %>
+</div>
+<div id="postrace">
+  <h2>Postrace Notes</h2>
+  <%= h @race_report.postrace_notes %>
+</div>
+</div>

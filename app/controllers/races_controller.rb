@@ -52,14 +52,22 @@ class RacesController < ApplicationController
     end
   end
 
+  def update
+    @race = Race.find(params[:id])
+
+    if @race.update_attributes(params[:race])
+      flash[:notice] = "Your race has been updated!"
+      redirect_to races_url
+    else
+      render :action => :edit
+    end
+  end
+
   def destroy
     @race = Race.find(params[:id])
     @race.delete
     flash[:notice] = "Your race was deleted!"
     redirect_to races_url
-  end
-
-  def update
   end
 
 private
