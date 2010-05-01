@@ -57,8 +57,8 @@ function changeRaceType()
          //parent.removeChild(e);
 
          // Send the request to the server to update the workouts displayed.
-         new Ajax.Request('/races/new.urd'+'?authenticity_token='+AUTH_TOKEN,
-            {method: 'get',
+         new Ajax.Request('/race_distance_box'+'?authenticity_token='+AUTH_TOKEN,
+            {method: 'put',
                 parameters: arrRaceType,
                 onComplete: function(request)
                 {

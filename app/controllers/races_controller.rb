@@ -9,23 +9,6 @@ class RacesController < ApplicationController
       wants.html {
         render :template => '/races/new'
       }
-      wants.urd {
-        if params[:value].nil?
-        else
-          racetype_box_value = params[:value]
-          selected = RaceType.find(:all, :select => 'race_distance',
-            :conditions => ['race_type = ?', racetype_box_value])
-          distances = '\'['
-          selected.each do |s|
-            distances += to_race_json(s)
-          end
-          # trim the trailing comma from the last object.
-          distances = distances.chomp(',')
-          distances += '\']'
-          res={:success=>true, :content => distances}
-          render :text=>res.to_json
-        end
-      }
     end
   end
 
@@ -68,6 +51,24 @@ class RacesController < ApplicationController
     @race.delete
     flash[:notice] = "Your race was deleted!"
     redirect_to races_url
+  end
+
+  def race_distance_box
+    if params[:value].nil?
+    else
+      racetype_box_value = params[:value]
+      selected = RaceType.find(:all, :select => 'race_distance',
+        :conditions => ['race_type = ?', racetype_box_value])
+      distances = '\'['
+      selected.each do |s|
+        distances += to_race_json(s)
+      end
+      # trim the trailing comma from the last object.
+      distances = distances.chomp(',')
+      distances += '\']'
+      res={:success=>true, :content => distances}
+      render :text=>res.to_json
+    end
   end
 
 private
