@@ -1,0 +1,36 @@
+<%= form.label :name %>
+<%= form.text_field :name %><br/>
+<br/>
+<%= form.label :race_type %>
+<%= form.collection_select :race_type, RaceType.find(:all, :select => 'DISTINCT race_type'),
+  :race_type, :race_type, options = { :prompt => "- Select a type -" },
+  :onChange => "changeRaceType();" %><br/>
+<br/>
+<%= form.label :race_distance %>
+<% if @race.race_distance.nil? %>
+<%= select_tag "race[race_distance]", "<option>- Select a race type first -</option>" %><br/>
+<% else %>
+<%= form.collection_select :race_distance, RaceType.find(:all, :select =>
+    'race_distance', :conditions => ["race_type = ?", @race.race_type]), :race_distance, :race_distance %><br/>
+<% end %>
+<br/>
+<%= form.label :city %>
+<%= form.text_field :city %><br/>
+<br/>
+<%= form.label :state %>
+<%= form.text_field :state %><br/>
+<br/>
+<%= form.label :race_date %>
+<%= form.date_select :race_date %><br/>
+<br/>
+<%= form.label :race_time %>
+<%= form.time_select :race_time, :twelve_hour => true %><br />
+<br/>
+<%= form.label :swim_distance %>
+<%= form.text_field :swim_distance %><br/>
+<br/>
+<%= form.label :bike_distance %>
+<%= form.text_field :bike_distance %><br/>
+<br/>
+<%= form.label :run_distance %>
+<%= form.text_field :run_distance %><br/>

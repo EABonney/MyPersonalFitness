@@ -28,6 +28,7 @@ class SwimWorkoutsController < ApplicationController
 
   def update
     @swim = @current_user.swim_workouts.find(params[:id])
+    @swim.calswimpace
     if @swim.update_attributes(params[:swim_workout])
       flash[:notice] = "Swim workout has been updated!"
       redirect_to dashboards_url

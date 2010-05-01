@@ -26,7 +26,7 @@
         <div id="displayswim">
           <div id="activityicon"><%= image_tag "swimming-icon64x64.png" %></div>
           <div id="durationdistancepace"><%=h swim.duration.strftime("%Hhrs %Mmins %Ssec") %> |
-                                       <%=h swim.distance %> yds | <%= swim.pace %>min/100
+                                       <%=h swim.distance %> yds | <%= calculatepace "swim", swim.distance, swim.duration %>min/100
           <div id="linkedit"><%= link_to "Edit", :controller => 'swim_workouts', :id => swim, :action => 'edit' %></div>
           <div id="linkdelete"><%= link_to "Delete", swim, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></div>
           <% if !swim.route_id.nil? %>
@@ -42,7 +42,7 @@
           <div id="displaybike">
             <%= image_tag "cycling-icon64x64.png" %>
             <div id="durationdistancepace"><%=h bike.duration.strftime("%Hhrs %Mmins %Ssec") %> |
-                                         <%=h bike.distance %> mi | <%= bike.pace %> mph
+                                         <%=h bike.distance %> mi | <%= calculatepace "bike", bike.distance, bike.duration %> mph
             <div id="linkedit"><%= link_to "Edit", :controller => 'bike_workouts', :id => bike, :action => 'edit' %></div>
             <div id="linkdelete"><%= link_to "Delete", bike, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></div>
             <% if !bike.route_id.nil? %>
@@ -58,7 +58,7 @@
           <div id="displayrun">
             <%= image_tag "running-icon64x64.png" %>
             <div id="durationdistancepace"><%=h run.duration.strftime("%Hhrs %Mmins %Ssec") %> |
-                                         <%=h run.distance %> mi | <%= run.pace %>min/mi
+                                         <%=h run.distance %> mi | <%= calculatepace "run", run.distance, run.duration %>min/mi
             <div id="linkedit"><%= link_to "Edit", :controller => 'run_workouts', :id => run, :action => 'edit' %></div>
             <div id="linkdelete"><%= link_to "Delete", run, :method => 'delete', :confirm => "Are you sure you want to delete this workout?" %></div></div>
             <% if !run.route_id.nil? %>
@@ -128,4 +128,93 @@
   <div id="run">Run:<div id="runduration"><%=  @prior_ytd_totals["run_duration"] %> min</div><div id="rundistance"><%= @prior_ytd_totals["run_distance"] %>mi </div></div>
   <div id="strength">Strength:</div>
   <div id="other">Other:<div id="otherduration"><%= @prior_ytd_totals["other_duration"] %> min</div><div id="otherdistance"><%= @prior_ytd_totals["other_distance"] %> mi</div></div>
+</div>
+<div id="upcomingraces">
+  <h3 class = "header">Upcoming Races</h3>
+  <% @upcoming_races.each do |race| %>
+  <% if race.race.race_date >= Date.today %>
+  <h4 class = "futureraces"><%= link_to race.race.name, race_report_url(race) %></h4>
+  <%= race.race.race_distance %><br/>
+  <%= race.race.race_date.strftime( "%A %b %d, %Y" ) %><br/>
+  <%= race.race.race_time.strftime( "%I:%M %p")  %><br/>
+  <br/>
+  <% end %>
+  <% end %>
+</div>
+<div id="racepr">
+  <h3 class = "header">Personal Bests</h3>
+  <h3 class ="header">Triathlons</h3>
+  <h4>
+    <% if @prTri_Sprint %>
+      <%= link_to @prTri_Sprint.race.name, race_report_url(@prTri_Sprint) %> - <%= @prTri_Sprint.race.race_distance %><br/>
+      Time: <%= @prTri_Sprint.total_time.strftime( "%Hhr %Mmin %Ssec" ) %><br/>
+      Date: <%= @prTri_Sprint.race.race_date.strftime( "%A %b %d, %Y") %>
+    <% else %>
+      No Sprint Triathlons completed
+    <% end %>
+  </h4>
+  <h4>
+    <% if @prTri_Olympic %>
+      <%= link_to @prTri_Olympic.race.name, race_report_url(@prTri_Olympic) %>- <%= @prTri_Olympic.race.race_distance %><br/>
+      Time: <%= @prTri_Olympic.total_time.strftime( "%Hhr %Mmin %Ssec" ) %><br/>
+      Date: <%= @prTri_Olympic.race.race_date.strftime( "%A %b %d, %Y") %>
+    <% else %>
+      No Olympic Triathlons completed
+    <% end %>
+  </h4>
+  <h4>
+    <% if @prTri_HIM %>
+      <%= link_to @prTri_HIM.race.name, race_report_url(@prTri_HIM) %>- <%= @prTri_HIM.race.race_distance %><br/>
+      Time: <%= @prTri_HIM.total_time.strftime( "%Hhr %Mmin %Ssec" ) %><br/>
+      Date: <%= @prTri_HIM.race.race_date.strftime( "%A %b %d, %Y") %>
+    <% else %>
+      No Half-ironman Triathlons completed
+    <% end %>
+  </h4>
+  <h4>
+    <% if @prTri_Ironman %>
+      <%= link_to @prTri_Ironman.race.name, race_report_url(@prTri_Ironman) %>- <%= @prTri_Ironman.race.race_distance %><br/>
+      Time: <%= @prTri_Ironman.total_time.strftime( "%Hhr %Mmin %Ssec" ) %><br/>
+      Date: <%= @prTri_Ironman.race.race_date.strftime( "%A %b %d, %Y") %>
+    <% else %>
+      No Ironman Triathlons completed
+    <% end %>
+  </h4>
+  <h3 class = "header">Running</h3>
+  <h4>
+    <% if @pr5k %>
+      <%= link_to @pr5k.race.name, race_report_url(@pr5k) %> - <%= @pr5k.race.race_distance %><br/>
+      Time: <%= @pr5k.total_time.strftime( "%Hhr %Mmin %Ssec" ) %><br/>
+      Date: <%= @pr5k.race.race_date.strftime( "%A %b %d, %Y") %>
+    <% else %>
+      No 5ks completed
+    <% end %>
+  </h4>
+  <h4>
+    <% if @pr10k %>
+      <%= link_to @pr10k.race.name, race_report_url(@pr10k) %>- <%= @pr10k.race.race_distance %><br/>
+      Time: <%= @pr10k.total_time.strftime( "%Hhr %Mmin %Ssec" ) %><br/>
+      Date: <%= @pr10k.race.race_date.strftime( "%A %b %d, %Y") %>
+    <% else %>
+      No 10ks completed
+    <% end %>
+  </h4>
+  <h4>
+    <% if @prHalfMarathon %>
+      <%= link_to @prHalfMarathon.race.name, race_report_url(@prHalfMarathon) %>- <%= @prHalfMarathon.race.race_distance %><br/>
+      Time: <%= @prHalfMarathon.total_time.strftime( "%Hhr %Mmin %Ssec" ) %><br/>
+      Date: <%= @prHalfMarathon.race.race_date.strftime( "%A %b %d, %Y") %>
+    <% else %>
+      No Half Marathons completed
+    <% end %>
+  </h4>
+  <h4>
+    <% if @prMarathon %>
+      <%= link_to @prMarathon.race.name, race_report_url(@prMarathon) %>- <%= @prMarathon.race.race_distance %><br/>
+      Time: <%= @prMarathon.total_time.strftime( "%Hhr %Mmin %Ssec" ) %><br/>
+      Date: <%= @prMarathon.race.race_date.strftime( "%A %b %d, %Y") %>
+    <% else %>
+      No Marathons completed
+    <% end %>
+  </h4>
 </div>

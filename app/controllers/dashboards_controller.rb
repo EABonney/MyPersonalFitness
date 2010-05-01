@@ -24,6 +24,40 @@ class DashboardsController < ApplicationController
                                     Date.new(Date.today.year, 12, 31))
       @prior_ytd_totals = get_summary_totals(Date.new(Date.today.year-1, 1, 1),
                                     Date.new(Date.today.year-1, 12, 31))
+      @upcoming_races = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ["races.race_date >= ?", Date.today], :order => 'races.race_date ASC'
+      @pr5k = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ['races.race_distance = "5k" and races.race_date < ? and total_time != ?', Date.today, "null"],
+        :limit => 1, :order => 'total_time ASC'
+      @pr5k.empty? ? @pr5k = false : @pr5k = @pr5k.fetch(0)
+      @pr10k = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ['races.race_distance = "10k" and races.race_date < ? and total_time != ?', Date.today, "null"],
+        :limit => 1, :order => 'total_time ASC'
+      @pr10k.empty? ? @pr10k = false : @pr10k = @pr10k.fetch(0)
+      @prHalfMarathon = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ['races.race_distance = "Half-Marathon" and races.race_date < ? and total_time != ?', Date.today, "null"],
+        :limit => 1, :order => 'total_time ASC'
+      @prHalfMarathon.empty? ? @prHalfMarathon = false : @prHalfMarathon.fetch(0)
+      @prMarathon = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ['races.race_distance = "Marathon" and races.race_date < ? and total_time != ?', Date.today, "null"],
+        :limit => 1, :order => 'total_time ASC'
+      @prMarathon.empty? ? @prMarathon = false : @prMarathon.fetch(0)
+      @prTri_Sprint = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ['races.race_distance = "Sprint" and races.race_date < ? and total_time != ?', Date.today, "null"],
+        :limit => 1, :order => 'total_time ASC'
+      @prTri_Sprint.empty? ? @prTri_Sprint = false : @prTri_Sprint = @prTri_Sprint.fetch(0)
+      @prTri_Olympic = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ['races.race_distance = "Olympic" and races.race_date < ? and total_time != ?', Date.today, "null"],
+        :limit => 1, :order => 'total_time ASC'
+      @prTri_Olympic.empty? ? @prTri_Olympic = false : @prTri_Olympic = @prTri_Olympic.fetch(0)
+      @prTri_HIM = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ['races.race_distance = "Half-Ironman" and races.race_date < ? and total_time != ?', Date.today, "null"],
+        :limit => 1, :order => 'total_time ASC'
+      @prTri_HIM.empty? ? @prTri_HIM = false : @prTri_HIM = @prTri_HIM.fetch(0)
+      @prTri_Ironman = @current_user.race_reports.find :all, :include => [:race],
+        :conditions => ['races.race_distance = "Ironman" and races.race_date < ? and total_time != ?', Date.today, "null"],
+        :limit => 1, :order => 'total_time ASC'
+      @prTri_Ironman.empty? ? @prTri_Ironman = false : @prTri_Ironman = @prTri_Ironman.fetch(0)
       @dates = get_highlight_dates
       @month_show = params[:id]
 
@@ -65,7 +99,7 @@ class DashboardsController < ApplicationController
     res={:success=>true, :content => returned_workouts}
     render :text=>res.to_json
   end
-
+  
   private
   def create_volume_graph
     OpenFlashChart.new( "Weekly vs Planned Volume" ) do |c|

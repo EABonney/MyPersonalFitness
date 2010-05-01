@@ -28,6 +28,7 @@ class BikeWorkoutsController < ApplicationController
 
   def update
     @bike = @current_user.bike_workouts.find(params[:id])
+    @bike.calbikepace
     if @bike.update_attributes(params[:bike_workout])
       flash[:notice] = "Bike workout has been updated!"
       redirect_to dashboards_url

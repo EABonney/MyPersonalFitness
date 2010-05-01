@@ -9,9 +9,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100321142239) do
+ActiveRecord::Schema.define(:version => 20100418141555) do
 
   create_table "notifiers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "race_types", :force => true do |t|
+    t.string "race_type"
+    t.string "race_distance"
+  end
+
+  create_table "races", :force => true do |t|
+    t.string   "name"
+    t.string   "race_type"
+    t.string   "race_distance"
+    t.float    "swim_distance", :default => 0.0
+    t.float    "bike_distance", :default => 0.0
+    t.float    "run_distance",  :default => 0.0
+    t.date     "race_date"
+    t.time     "race_time"
+    t.string   "city"
+    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
