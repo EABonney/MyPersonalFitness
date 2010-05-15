@@ -1,22 +1,16 @@
-<div id="navigation">
-  <ul>
-    <li><%= link_to "Home", dashboards_url %></li>
-    <li><%= link_to "My Account", account_path %></li>
-    <li>Reports</li>
-    <li><%= link_to "Workouts", workouts_url %></li>
-    <ul>
-      <li><%= link_to "Swim", new_swim_workout_url %> </li>
+  <ul id="nav">
+    <li class="top"><%= link_to"Home", dashboards_url, :class => 'top_link' %></li>
+    <li class="top"><%= link_to "My Account", account_path, :class => 'top_link' %></li>
+    <li class="top"><%= link_to "Workouts", workouts_url, :class => 'top_link' %></li>
+    <ul class="sub">
+      <li><%= link_to "Swim", new_swim_workout_url %></li>
       <li><%= link_to "Bike", new_bike_workout_url %></li>
       <li><%= link_to "Run", new_run_workout_url %></li>
-      <li>Strength</li>
       <li><%= link_to "Other", new_other_workout_url %></li>
     </ul>
-    <li><%= link_to "Races", races_url %></li>
-    <li><%= link_to "My Race Report", race_reports_url %></li>
-    <li><%= link_to "Routes", routes_url %></li>
-    <li>Training Plans</li>
-    <li>Downloads</li>
-    <li>About Fitness Log</li>
-    <li><%= link_to "Logout", user_session_path, :method => :delete, :confirm => "Are you sure you want to logout?" %></li>
+    <li class="top"><%= link_to "Races", races_url, :class => 'top_link' %></li>
+    <li class="top"><%= link_to "My Race Report", race_reports_url, :class => 'top_link' %></li>
+    <li class="top"><%= link_to "Routes", routes_url, :class => 'top_link' %></li>
+    <li class="top"><%= link_to "Logout", user_session_path, :method => :delete,
+    :confirm => "Are you sure you want to logout?", :class => 'top_link' %></li>
   </ul>
-</div> <!-- end of navigation div -->
